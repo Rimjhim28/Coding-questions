@@ -1,0 +1,25 @@
+import java.util.*;
+import java.lang.*;
+
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		while(t > 0){
+			t = t -1;
+			int l = in.nextInt();
+			int c = in.nextInt();
+			for(int i = 0; i < l; i++){
+				char pc = (i%2 == 0)? '*':'.';
+				for(int j = 0; j < c; j++){
+					System.out.print(pc);
+					pc = (pc == '.')? '*':'.';
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+	}
+}
