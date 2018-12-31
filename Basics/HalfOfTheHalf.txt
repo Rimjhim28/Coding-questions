@@ -1,0 +1,24 @@
+import java.util.*;
+import java.lang.*;
+
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		String s;
+		while(t > 0){
+			t = t - 1;
+			s = in.next();
+			s = s.substring(0, s.length()/2);
+			int i = 0;
+			while(i < s.length()){
+				if(i%2 == 0)
+				System.out.print(s.charAt(i));
+				i+=1;
+			}
+			System.out.println();
+		}
+	}
+}
