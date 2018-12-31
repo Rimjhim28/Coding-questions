@@ -1,0 +1,36 @@
+import java.util.*;
+import java.lang.*;
+
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		int t, l, c, h, w;
+		Scanner in = new Scanner(System.in);
+		t = in.nextInt();
+		while( t > 0){
+			t-=1;
+			l = in.nextInt();
+			c = in.nextInt();
+			h = in.nextInt();
+			w = in.nextInt();
+			for(int i = 0; i < (l*(h+1)+1); i++){
+				if(i%(h+1) == 0) {
+					for(int j = 0; j < (c*(w+1)+1); j++)
+					System.out.print("*");
+					System.out.println();
+				}
+				else {
+					for(int j = 0; j < (c*(w+1)+1); j++){
+						if(j%(w+1) == 0) 
+						System.out.print("*");
+						else
+						System.out.print(".");
+					}
+					System.out.println();
+				}
+			}
+			System.out.println();
+		}
+	}
+}
