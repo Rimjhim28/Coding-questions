@@ -1,0 +1,25 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, x1, y1, r1, x2, y2, r2;
+		t = in.nextInt();
+		while(t-- > 0){
+			x1 = in.nextInt();
+			y1 = in.nextInt();
+			r1 = in.nextInt();
+			x2 = in.nextInt();
+			y2 = in.nextInt();
+			r2 = in.nextInt();
+			double dist = Math.sqrt(((x1-x2)*(x1-x2)) + ((y1-y2)*(y1-y2)));
+			if((dist == (r1-r2)) || (dist == (r2-r1)))
+				System.out.println("E");
+			else if((dist < (r1-r2)) || (dist < (r2-r1)))
+				System.out.println("I");
+			else
+				System.out.println("O");
+		}
+	}
+}
