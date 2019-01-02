@@ -1,0 +1,14 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		String str = "W";
+		int x = in.nextInt();
+		for(int i = 0; i < x; i++)
+		str = str + "o";
+		str = str + "w";
+		System.out.println(str);
+	}
+}
