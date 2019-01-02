@@ -1,0 +1,26 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, n, x, y, c = 1;
+		t = in.nextInt();
+		while(t-- > 0){
+			n = in.nextInt();
+			x = in.nextInt();
+			y = in.nextInt();
+			c = 1;
+			while(true){
+				if((x*c) < n){
+					if((x*c)%y!=0)
+					System.out.print(x*c + " ");
+				c+=1;
+				}
+				else
+					break;
+			}
+			System.out.println();
+		}
+	}
+}
