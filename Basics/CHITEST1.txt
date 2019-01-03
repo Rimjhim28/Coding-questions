@@ -1,0 +1,18 @@
+import java.util.*;
+import java.lang.*;
+
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		float a, b;
+		while(t > 0){
+			t-=1;
+			a = in.nextFloat();
+			b = in.nextFloat();
+			System.out.println(a+b);
+		}
+	}
+}
