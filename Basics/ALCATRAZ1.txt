@@ -1,0 +1,22 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, i, n, s = 0;
+		String num;
+		t = in.nextInt();
+		while(t > 0){
+			t-=1;
+			num = in.next();
+			i = num.length()-1;
+			while( i>= 0){
+				s = s + Character.getNumericValue(num.charAt(i));
+				i-=1;
+			}
+			System.out.println(s);
+			s = 0;
+		}
+	}
+}
