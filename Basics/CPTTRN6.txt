@@ -1,0 +1,35 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	static void printRows(int w, int c, char ch1, char ch2){
+		for(int j = 1; j <= ((w+1)*c + w); j++){
+			if((j % (w+1)) == 0)
+				System.out.print(ch1);
+			else 
+				System.out.print(ch2);
+		}
+	}
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, l, c, h, w;
+		t = in.nextInt();
+		while( t > 0){
+			t-=1;
+			l = in.nextInt();
+			c = in.nextInt();
+			h = in.nextInt();
+			w = in.nextInt();
+			for(int i = 1; i <= ((h+1)*l + h); i++){
+				if((i % (h+1)) == 0)
+					Main.printRows(w, c, '+', '-');
+				else
+					Main.printRows(w, c, '|', '.');
+				System.out.println();
+			}
+			System.out.println();
+		}
+	}
+}
