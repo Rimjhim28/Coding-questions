@@ -1,0 +1,33 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, m, n, ci, cj;
+		t = in.nextInt();
+		while( t > 0){
+			t-=1;
+			m = in.nextInt();
+			n = in.nextInt();
+			ci = in.nextInt();
+			cj = in.nextInt();
+			for(int i = 1; i <= m; i++){
+				if(i == ci){
+					for(int j = 1; j <= n; j++)
+						System.out.print("*");
+				}
+				else {
+					for(int j = 1; j <= n; j++){
+						if(j == cj)
+							System.out.print("*");
+						else 
+							System.out.print(".");
+					}
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+	}
+}
