@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+    static boolean isPrime(int n){
+        for(int i = 2; i*i <= n; i++){
+            if(n%i == 0)
+            return false;
+        }
+        return true;
+    }
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, n, num, count;
+		ArrayList<Integer> primes;
+		t = in.nextInt();
+		while(t > 0){
+			t-=1;
+			n = in.nextInt();
+			count = 0;
+			num = 1;
+			primes = new ArrayList<>();
+			while(n>0){
+			    num+=1;
+				if(isPrime(num)){
+					count+=1;	
+					primes.add(num);					
+					if(primes.size() == 3) {						
+						System.out.print(((primes.get(0) * primes.get(1)) + primes.get(2)) + " ");
+						primes = new ArrayList<>();
+						n-=1;
+					}
+				}
+			}
+			System.out.println();
+		}
+	}
+}
