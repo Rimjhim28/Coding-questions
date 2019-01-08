@@ -1,0 +1,22 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		String a, b;
+		while(true){
+			try{
+				a = in.next();
+				b = in.next();
+			} catch(NoSuchElementException e){
+				break;
+			}
+			if(a.contains(b))
+			System.out.println(1);
+			else
+			System.out.println(0);
+		}
+	}
+}
