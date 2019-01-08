@@ -1,0 +1,23 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int n, nCT, nLab, tCT, tLab, tCls, tCode = 3, time;
+		n = in.nextInt();
+		while(n-- > 0){
+			nCT = in.nextInt();
+			nLab = in.nextInt();
+			tCT = in.nextInt();
+			tLab = in.nextInt();
+			tCls = in.nextInt();
+			time = nCT * tCT + nLab * tLab + tCls + tCode + 10;
+			if(time <= 24)
+				System.out.println("Khushi");
+			else
+				System.out.println("Hotash");
+		}
+	}
+}
