@@ -1,0 +1,23 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, x, y;
+		t = in.nextInt();
+		while(t-- > 0){
+			x = in.nextInt();
+			y = in.nextInt();
+			if(x==y || x-2 == y){
+				if(x%2 == 0)
+					System.out.println(x+y);
+				else
+					System.out.println(x+y-1);
+			}
+			else
+				System.out.println("No Number");
+		}
+	}
+}
