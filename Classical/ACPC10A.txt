@@ -1,0 +1,25 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int a, b, c;
+		while(true){
+			a = in.nextInt();
+			b = in.nextInt();
+			c = in.nextInt();
+			if(a==0 && b==0 && c==0)
+				break;
+			else {
+				if(b-a == c-b){
+					System.out.println("AP " + (c+(b-a)));
+				}
+				else if(b/a == c/b){
+					System.out.println("GP " + (c*(b/a)));
+				}
+			}
+		}
+	}
+}
