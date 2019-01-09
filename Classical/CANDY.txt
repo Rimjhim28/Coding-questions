@@ -1,0 +1,37 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int n, sum, req, req_sum;
+		while(true){ 
+			n = in.nextInt();
+			if(n==-1)
+				break;
+			else {
+				int a[] = new int[n];
+				sum = 0;
+				req_sum = 0;
+				for(int i = 0; i < n; i++){
+					a[i] = in.nextInt();
+					sum+=a[i];
+				}
+				if(sum%n == 0){
+					req = sum/n;
+					for(int i = 0; i < n; i++){
+						if(a[i]-req>0)
+							req_sum = req_sum + a[i]-req;
+					}
+					if(req_sum > 0){
+						System.out.println(req_sum);
+					} else {
+						System.out.println(-1);
+					}
+				} else
+				System.out.println(-1);
+			}
+		}
+	}
+}
