@@ -1,0 +1,17 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int n;
+		while(true){
+			n = in.nextInt();
+			if(n == 0)
+				break;
+			else
+				System.out.println(n*(n+1)*(2*n+1)/6);
+		}
+	}
+}
