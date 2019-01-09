@@ -1,0 +1,25 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+	static int reverse(int num){
+		int ans = 0;
+		while(num > 0){
+			ans = ans*10 + num%10;
+			num = num/10;
+		}
+		return ans;
+	}
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, a, b, ans;
+		t = in.nextInt();
+		while(t-- > 0){
+			a = in.nextInt();
+			b = in.nextInt();
+			ans = Main.reverse(Main.reverse(a) + Main.reverse(b));
+			System.out.println(ans);
+		}
+	}
+}
