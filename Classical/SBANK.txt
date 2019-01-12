@@ -1,0 +1,33 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int t, n;
+		String s;
+		t = in.nextInt();
+		while(t-- > 0){
+			n = in.nextInt();
+			Map<String, Integer> map = new HashMap<>();
+			s = in.nextLine();
+			for(int i = 1; i <= n; i++){
+				s = in.nextLine();
+				if(map.containsKey(s))
+					map.put(s, map.get(s)+1);
+				else {
+					map.put(s, 1);
+				}
+			}
+			ArrayList<String> sortedKeys = new ArrayList<>(map.keySet());
+			Collections.sort(sortedKeys);
+			for(String str: sortedKeys)
+				System.out.println(str.trim() + " " + map.get(str));
+			System.out.println();
+			try{
+			    String str = in.nextLine();
+			}catch(NoSuchElementException e){}
+		}
+	}
+}
