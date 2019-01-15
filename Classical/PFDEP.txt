@@ -1,0 +1,67 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Graph {
+	int V;
+	List<Integer> adj[];
+	
+	public Graph(int V){
+		this.V = V;
+		adj = new ArrayList[V];
+		for(int i = 0; i < V; i++){
+			adj[i] = new ArrayList<Integer>();
+		}
+	}
+
+	public void addEdge(int u, int v){
+		adj[u].add(v);
+	}
+
+	public void topologicalSort(int[] indegree){
+
+		        PriorityQueue<Integer> q = 
+                          new PriorityQueue<Integer>(); 
+		for(int i = 0; i < V; i++) {
+			if(indegree[i] == 0)
+				q.add(i);
+		}
+		
+		Vector<Integer> topOrder = new Vector<Integer>();
+		
+		while(!q.isEmpty()){
+			int u = q.poll();
+			topOrder.add(u);
+			for(int node: adj[u]) {
+				if(--indegree[node] == 0){
+					q.add(node);
+				}
+			}
+		}
+		for(int i : topOrder)
+			System.out.print((i+1) + " ");
+	}
+}
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int n, m, u, v, nu;
+		n = in.nextInt();
+		m = in.nextInt();
+		int[] indegree = new int[n];
+		for(int i = 0; i < n; i++)
+			indegree[i] = 0;
+		Graph g = new Graph(n);
+		for(int i = 0; i < m; i++){
+			v = in.nextInt();
+			nu = in.nextInt();
+			indegree[v-1] += nu;
+			for(int j = 0; j < nu; j++){
+				u = in.nextInt();
+				g.addEdge(u-1,v-1);
+			}
+		}
+		g.topologicalSort(indegree);
+	}
+}
