@@ -1,0 +1,70 @@
+import java.util.*;
+import java.lang.*;
+
+class Rent{
+	int start, end, profit;
+	Rent(int start, int end, int profit){
+		this.start = start;
+		this.end = end;
+		this.profit = profit;
+	}
+}
+
+class RentComparator implements Comparator<Rent> {
+	public int compare(Rent a, Rent b){
+		return a.end < b.end ? -1: a.end==b.end? 0: 1;
+	}
+}
+
+class Main {
+
+	static int binarySearch(Rent[] rents, int index) {
+		int low = 0, high = index-1;
+		while(low <= high) {
+			int mid = (low+high)/2;
+			if(rents[mid].end < rents[index].start) {
+				if(rents[mid+1].end < rents[index].start)
+					low = mid + 1;
+				else
+					return mid;
+			} else {
+				high = mid - 1;
+			}
+		}
+		return -1;
+	}
+
+	static public int schedule(Rent rents[]){
+		Arrays.sort(rents, new RentComparator());
+		int n = rents.length;
+		int table[] = new int[n];
+		table[0] = rents[0].profit;
+		for(int i = 1; i < n; i++){
+			int inclProfit = rents[i].profit;
+			int l = binarySearch(rents, i);
+			if(l!=-1)
+				inclProfit+=table[l];
+			table[i] = Math.max(inclProfit, table[i-1]);
+		}
+		return table[n-1];
+	}
+
+
+	public static void main (String[] args) throws java.lang.Exception {
+		int t, n, start, duration, profit;
+		Scanner in = new Scanner(System.in);
+		t = in.nextInt();
+		while(t-- > 0) {
+			n = in.nextInt();
+			Rent rents[] = new Rent[n];
+			for(int i = 0; i < n; i++){
+				start = in.nextInt();
+				duration = in.nextInt();
+				profit = in.nextInt();
+				rents[i] = new Rent(start, start+duration, profit);
+			}
+			int total = schedule(rents);
+			System.out.print(total);
+		}
+	}
+}
