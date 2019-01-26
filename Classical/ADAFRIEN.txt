@@ -1,0 +1,33 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int q, k;
+		long e, ans = 0;
+		String s;
+		HashMap<String, Long> mp = new HashMap<>();
+		q = in.nextInt();
+		k = in.nextInt();
+		while(q-- > 0){
+			s = in.next();
+			e = in.nextLong();
+			if(mp.containsKey(s)){
+				mp.put(s, mp.get(s)+e);
+			} else {
+			    mp.put(s, e);
+			}
+		}
+		List<Long> values = new ArrayList<>(mp.values());
+		Collections.sort(values);
+		int i = values.size()-1;
+		if(k > values.size()) k = values.size();
+		while(k-- > 0){
+		    ans+=values.get(i);
+		    i--;
+		}
+		System.out.println(ans);
+	}
+}
