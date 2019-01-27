@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+
+class Main {
+
+	static void updateSum(int[] BIT, int n, int index, int val) {
+		while(index <= n){
+			BIT[index]+=val;
+			index+=(index&(-index));
+		}
+	}
+	
+	static int getSum(int BIT[], int a, int b) {
+		int index1 = b, sum1 = 0, index2 = a-1, sum2 = 0;
+		while(index1 > 0) {
+			sum1+=BIT[index1];
+			index1-=(index1 & (-index1));
+		}
+		while(index2 > 0) {
+			sum2+=BIT[index2];
+			index2-=(index2 & (-index2));
+		}
+		return (sum1-sum2);
+	}
+
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner in = new Scanner(System.in);
+		int n, q, a, b, p, f;
+		String query;
+		n = in.nextInt();
+		q = in.nextInt();
+		int BIT[] = new int[n+1];
+		for(int i = 0; i <= n; i++)
+			BIT[i] = 0;
+		while(q-- > 0) {
+			query = in.next();
+			a = in.nextInt();
+			b = in.nextInt();
+			if(query.equals("find")){
+				int ans = getSum(BIT, a, b);
+				System.out.println(ans);
+			} else if(query.equals("add")) {
+				updateSum(BIT, n, a, b);
+			}
+		}
+	}
+}
