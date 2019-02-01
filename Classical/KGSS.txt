@@ -1,0 +1,95 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct node {
+	int m1, m2;
+};
+
+node findMax(node n1, node n2){
+	int val1 = 0, val2 = 0;
+	node n;
+	val1 = max(n1.m1, n2.m1);
+	if(val1 == n1.m1){
+		if((n1.m2 > n2.m1) && (n1.m1 != n1.m2))
+			val2 = n1.m2;
+		else
+			val2 = n2.m1;
+	} else if (val1 == n2.m1){
+		if((n2.m2 > n1.m1) && (n2.m1 != n2.m2))
+			val2 = n2.m2;
+		else
+			val2 = n1.m1;
+	}
+	n.m1 = val1;
+	n.m2 = val2;
+	return n;
+}
+
+node buildTree(node segTree[], int arr[], int ss, int se, int si){
+	node n;
+	if(ss == se){
+		n.m1 = n.m2 = arr[ss];
+		segTree[si] = n;
+		return n;
+	}
+	int mid = (ss+se)/2;
+	segTree[si] = findMax(buildTree(segTree, arr, ss, mid, 2*si+1), buildTree(segTree, arr, mid+1, se, 2*si+2));
+	return segTree[si];
+}
+
+node query(node segTree[], int ss, int se, int si, int qs, int qe){
+	node n; n.m1 = 0; n.m2 = 0;
+	if(qs <= ss && qe >= se)
+		return segTree[si];
+	if((se < qs) || (ss > qe))
+		return n;
+	int mid = (ss+se)/2;
+	return(findMax(query(segTree, ss, mid, 2*si+1, qs, qe), query(segTree, mid+1, se, 2*si+2, qs, qe)));
+}
+
+void updateValue(node segTree[], int val, int index, int ss, int se, int si){
+	if((index < ss)||(index > se))
+	    return;
+	
+	if(ss == se){
+		segTree[si].m1 = segTree[si].m2 = val;
+	} else {
+
+	int mid = (ss+se)/2;
+	if((index >= ss) && (index <= mid))
+		updateValue(segTree, val, index, ss, mid, 2*si+1);
+	else 
+		updateValue(segTree, val, index, mid+1, se, 2*si+2);
+	segTree[si] = findMax(segTree[2*si+1], segTree[2*si+2]);
+	}
+}
+
+int main() {
+	
+	// your code here
+	int i, n, q, m, x, y, ans;
+	char ch;
+	node n_ans;
+	scanf("%d", &n);
+	int arr[n];
+	for(i = 0; i < n; i++)
+		scanf("%d ", &arr[i]);
+    int a = (int)(ceil(log2(n))); 
+    int max_size = 2 * (int)pow(2, a) - 1; 
+    node* segTree = new node[max_size]; 
+	buildTree(segTree, arr, 0, n-1, 0);
+	scanf("%d ", &m);
+	for(i = 0; i < m; i++){
+		scanf("%c ", &ch);
+		scanf("%d ", &x);
+		scanf("%d ", &y);
+		if(ch == 'Q'){
+			n_ans = query(segTree, 0, n-1, 0, x-1, y-1);
+			ans = n_ans.m1 + n_ans.m2;
+			printf("%d\n", ans);
+		} else if(ch == 'U') {
+			updateValue(segTree, y, x-1, 0, n-1, 0);
+		}
+	}
+	return 0;
+}
