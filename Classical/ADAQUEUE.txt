@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	string str;
+	int n, num;
+	bool reverse = false;
+	deque<int> dq;
+	scanf("%d ", &n);
+	while(n-- > 0) {
+		cin>>str;
+
+		if(str == "toFront"){
+			scanf("%d ", &num);
+			if(reverse)
+				dq.push_back(num);
+			else
+				dq.push_front(num);
+
+		} else if (str == "push_back") {
+			scanf("%d ", &num);
+			if(reverse)
+				dq.push_front(num);
+			else
+				dq.push_back(num);
+
+		} else if (str == "front") {
+			if(dq.empty())
+				printf("No job for Ada?\n");
+			else {
+				if(reverse){
+				printf("%d\n", dq.back());
+				dq.pop_back();
+				} else {
+					printf("%d\n", dq.front());
+					dq.pop_front();
+				}
+			}
+
+		} else if (str == "back") {
+
+			if(dq.empty())
+				printf("No job for Ada?\n");
+			else {
+				if(reverse) {
+					printf("%d\n", dq.front());
+					dq.pop_front();
+				} else {
+					printf("%d\n", dq.back());
+					dq.pop_back();
+				}
+			}
+
+		} else if (str == "reverse") {
+			if(reverse)
+				reverse = false;
+			else
+				reverse = true;
+		}
+	}
+	return 0;
+}
