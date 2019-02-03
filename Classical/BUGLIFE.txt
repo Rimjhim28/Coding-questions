@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool isBipartiteUtil(vector<vector<int>> G, int color[], int src, int V) {
+	queue <int> q;
+	q.push(src);
+	while(!q.empty()) {
+		int u = q.front();
+		q.pop();
+		if(G[u][u] == 1)
+			return false;
+		for(int v = 1; v < V; v++) {
+			if((G[u][v] == 1) && (color[v] == -1)) {
+				color[v] = 1 - color[u];
+				q.push(v);
+			}
+			if((G[u][v] == 1) && (color[u] == color[v]))
+				return false;
+		}
+	}
+	return true;
+}
+
+bool isBipartite(int V, vector<vector<int>> G) {
+	int color[V];
+	for(int i = 0; i < V; i++)
+		color[i] = -1;
+	for(int i = 1; i < V; i++) {
+		if(color[i] == -1)
+			if(isBipartiteUtil(G, color, i, V) == false)
+				return false;
+	}
+	return true;
+}
+
+int main() {
+	int t, n, u, v, V;
+	scanf("%d ", &t);
+	for(int i = 1; i <= t; i++){
+		scanf("%d ", &V);
+		scanf("%d ", &n);
+ 		V+=1;
+ 		vector<vector<int>> G(V);
+		for(int i = 1; i < V; i++) {
+		    G[i] = vector<int>(V);
+			for(int j = 1; j < V; j++){
+				 G[i][j] = 0;
+			}
+		}
+		while(n-- > 0) {
+			scanf("%d ", &u);
+			scanf("%d ", &v);
+ 			G[u][v] = 1;
+		}
+		printf("Scenario #%d:\n", i);
+		if(isBipartite(V, G)) {
+			printf("No suspicious bugs found!\n");
+		}
+		else {
+			printf("Suspicious bugs found!\n");
+		}
+	}
+	return 0;
+}
