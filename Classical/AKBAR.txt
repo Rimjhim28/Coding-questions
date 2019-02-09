@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool bfs(list<int> graph[], int src, int strength, int protected_by[], int n) {
+	int u;
+	list<int> q;
+	bool visited[n], optimal = true;
+	int power[n];
+	for(int i = 0; i < n; i++)
+	power[n] = -1;
+	for(int i = 0; i < n; i++)
+		visited[i] = false;
+	
+	q.push_back(src);
+	visited[src] = true;
+	list<int>::iterator i;
+	if(protected_by[src]!=-1)
+		return false;
+	else
+		protected_by[src] = src;
+	while(!q.empty()) {
+		if(protected_by[q.front()] > 0){
+		    strength = strength - 1;
+			u = q.front();
+			q.pop_front();
+			for(i = graph[u].begin(); i != graph[u].end(); ++i) {
+				if(!visited[*i]) {
+					q.push_back(*i);
+					visited[*i] = true;
+					if(protected_by[*i] == -1){
+					protected_by[*i] = src;
+					power[*i] = strength;
+					}
+					else if (protected_by[*i] != src)
+					return false;
+				} else {
+					if(protected_by[*i] != src) {
+						return false;
+					}
+				}
+			}
+		}
+	}
+	return optimal;
+}
+
+int main() {
+	int t, n, r, m, u, v, k ,s;
+	bool answer = true;
+	scanf("%d ", &t);
+	while(t-- > 0) {
+		scanf("%d ", &n);
+		scanf("%d ", &r);
+		scanf("%d ", &m);
+		n+=1;
+		answer = true;
+		int strength[n];
+		for(int i= 0; i < n; i++)
+			strength[i] = -1;
+		list<int> graph[n];
+		int protected_by[n];
+		for(int i = 0; i < n; i++)
+			protected_by[i] = -1;
+		for(int i = 0; i < r; i++) {
+			scanf("%d ", &u);
+			scanf("%d ", &v);
+			graph[u].push_back(v);
+			graph[v].push_back(u);
+		}
+		for(int i = 0; i < m; i++) {
+			scanf("%d ", &k);
+			scanf("%d ", &s);
+			bool a = bfs(graph, k, s, protected_by, n);
+			for(int i = 0; i < n; i++)
+			// printf("%d ", protected_by[i]);
+			// printf("\n");
+ 		// 	printf("%d\n", a);
+            if(a==0)
+            answer = false;
+		}
+		for(int i = 1; i < n; i++){
+		    if(protected_by[i] == -1){
+		        answer = false;
+		        break;
+		    }
+		}
+		if(answer)
+			printf("Yes\n");
+		else
+			printf("No\n");
+	}
+}
