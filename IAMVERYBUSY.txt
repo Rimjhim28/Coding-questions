@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Activity {
+	int start, end;
+};
+
+bool compareActivity(Activity a1, Activity a2) {
+	return a1.end < a2.end;
+}
+
+int countActivity(Activity act[], int n) {
+    sort(act, act+n, compareActivity);
+	int count = 1, i = 0, j;
+	for(j = 1; j < n; j++) {
+		if(act[i].end <= act[j].start) {
+			i = j;
+			count+=1;
+		}
+	}
+	return count;
+}
+
+int main() {
+	int t, n, s, e, ans;
+	scanf("%d ", &t);
+	while(t-- > 0) {
+		scanf("%d ", &n);
+		Activity act[n];
+		for(int i = 0; i < n; i++) {
+			scanf("%d ", &s);
+			scanf("%d ", &e);
+			act[i].start = s;
+			act[i].end = e;
+		}
+		ans = countActivity(act, n);
+		printf("%d\n", ans);
+	}
+}
