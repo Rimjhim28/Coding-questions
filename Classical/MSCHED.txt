@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct  cow {
+	int milk, deadline;
+};
+
+bool sortMilk(cow c1, cow c2) {
+    if(c1.milk != c2.milk)
+	return c1.milk > c2.milk;
+	return c1.deadline < c2.deadline;
+}
+
+int findMax(cow cows[], int n) {
+	int sum = 0;
+	int deadline[n+1];
+	for(int i = 0; i <= n; i++)
+		deadline[i] = 1;
+	for(int i = 0; i < n; i++) {
+		for(int j = min(n, cows[i].deadline); j >= 1; j--) {
+			if(deadline[j] == 1) {
+				deadline[j] = 0;
+				sum+=cows[i].milk;
+				break;
+			}
+		}
+	}
+	return sum;
+}
+
+int main() {
+	int n, milk, deadline, ans;
+	scanf("%d", &n);
+	cow cows[n], c;
+	for(int i = 0; i < n; i++) {
+		scanf("%d%d", &milk, &deadline);
+		c.milk = milk;
+		c.deadline = deadline;
+		cows[i] = c;
+	}
+	sort(cows, cows+n, sortMilk);
+	ans = findMax(cows, n);
+	printf("%d\n", ans);
+	return 0;
+}
