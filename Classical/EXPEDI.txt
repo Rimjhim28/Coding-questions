@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct city {
+	int dist, fuel;
+};
+
+bool sortDist(city c1, city c2) {
+	return c1.dist > c2.dist;
+}
+
+int getCount(city cities[], int n, int dist, int fuel) {
+	priority_queue <int> q;
+	int count = 0, av_fuel = fuel;
+	for(int i = 0; i < n; i++) {
+		if((dist-cities[i].dist) > av_fuel) {
+			while((dist-cities[i].dist) > av_fuel) {
+				if(q.empty()){
+					return -1;
+				}
+				av_fuel+=q.top();
+				q.pop();
+				count+=1;
+			}
+		}
+		q.push(cities[i].fuel);
+	}
+	return count;
+}
+
+int main() {
+	int t, n, l, p, dist, fuel;
+	city c;
+	scanf("%d", &t);
+	while(t-- > 0) {
+		scanf("%d", &n);
+		n+=1;
+		city cities[n];
+		for(int i = 0; i < n-1; i++) {
+			scanf("%d", &dist);
+			scanf("%d", &fuel);
+			c.dist = dist;
+			c.fuel = fuel;
+			cities[i] = c;
+		}
+		c.dist = 0;
+		c.fuel = 0;
+		cities[n-1] = c;
+		scanf("%d%d", &l, &p);
+		sort(cities, cities+n, sortDist);
+		int ans = getCount(cities, (n+1), l, p);
+		printf("%d\n", ans);
+	}
+	return 0;
+}
