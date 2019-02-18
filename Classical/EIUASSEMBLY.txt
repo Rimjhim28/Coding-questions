@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool check(vector<int> &p, vector<int> &m, long long total_cost, long long level) {
+	long long total = 0;
+	int i = 0;
+	for(i = 0; i < p.size(); i++) {
+		if((level - p[i]) > 0)
+			total += (level - p[i]) * (long long int)m[i];
+		if(total > total_cost)
+			return false;
+	}
+	return true;
+}
+
+long long binarySearch(vector<int> &p, vector<int> &m , long long total_cost) {
+	long long low = 0, high = LLONG_MAX/10, mid, ans = -1;
+	while(low < high) {
+		mid = (low+high)/2;
+		if(check(p, m, total_cost, mid)) {
+			low = mid + 1;
+			ans = max(mid, ans);
+		} else {
+			high = mid;
+		}
+	}
+	return ans;
+}
+
+int main() {
+	int t;
+	scanf("%d", &t);
+	while(t-- > 0) {
+		long long n, total_cost;
+		scanf("%lld%lld", &n, &total_cost);
+		vector <int> p(n), m(n);
+		for(int i = 0; i < n; i++) {
+			scanf("%d%d", &p[i], &m[i]);
+		}
+		printf("%lld\n", binarySearch(p, m, total_cost));
+	}
+	return 0;
+}
