@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long int reverseAns(long long int num) {
+    long long int sum = 0;
+    while(num > 0) {
+        sum = sum * 10 + num % 10;
+        num/=10;
+    }
+    return sum;
+}
+
+long long int getAns(long long int num) {
+	long long int n = num, sum = 0;
+	while(n > 1) {
+		for(long long int i = 9; i >= 1; i--) {
+			if(n%i == 0) {
+				if(i != 1) {
+					sum = sum*10 + i;
+					n = n/i;
+					break;
+				} else {
+					return -1;
+				}
+			}
+		}
+	}
+	return sum;
+}
+
+int main() {
+	int t;
+	long long int num, ans;
+	scanf("%d", &t);
+	while(t-- > 0) {
+		scanf("%lld", &num);
+		if(num == 0)
+		    ans = 10;
+		else if((num >= 1) && (num <= 9))
+			ans = num;
+		else { 
+			ans = getAns(num);
+			if(ans!=-1)
+		    ans = reverseAns(ans);
+		}
+		printf("%lld\n", ans);
+	}
+	return 0;
+}
