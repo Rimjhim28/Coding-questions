@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+map <int,int> m;
+int coin(int v)
+{
+	if(v<12)
+		return v;
+	else
+	{
+		int temp = m[v];
+		if(temp==0)
+		{
+			temp  = coin(v/2) + coin(v/4) + coin(v/3);
+			m[v] = temp;
+		}
+		return temp;
+	}
+}
+int main()
+{
+	int temp;
+	while(scanf("%d",&temp)!=EOF)
+		printf("%u\n",coin(temp));
+}
