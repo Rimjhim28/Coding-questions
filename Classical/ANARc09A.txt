@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+char str[2000];
+int main() {
+	scanf("%s", str);
+	int c = 1;
+	while(str[0] != '-') {
+		int size = strlen(str);
+		stack<char> st;
+		int k = 0, i = 0;
+		while(i < size) {
+			char ch = str[i];
+			if(ch == '{')
+				st.push(ch);
+			else if( ch == '}') {
+				if(st.size() == 0) {
+					k+=1;
+					st.push('{');
+				} else {
+					st.pop();
+				}
+			}
+			i++;
+		}
+		k+=(st.size()/2);
+		printf("%d. %d\n", c, k);
+		c+=1;
+		k = 0;
+		scanf("%s", str);
+	}
+	return 0;
+}
