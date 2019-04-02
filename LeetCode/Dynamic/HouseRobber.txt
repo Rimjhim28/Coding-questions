@@ -1,0 +1,16 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length-1;
+        int ans[] = new int[nums.length];
+        if(nums.length == 0) return 0;
+        ans[n] = nums[n];
+        if(nums.length >= 2)
+            ans[n-1] = Math.max(nums[n], nums[n-1]);
+        if(nums.length>=3)
+            ans[n-2] = Math.max(nums[n-2]+nums[n], nums[n-1]);
+        for(int i = n-3; i>=0; --i) {
+            ans[i] = Math.max(nums[i]+ans[i+2], ans[i+1]);
+        }
+        return(ans[0]);
+    }
+}
