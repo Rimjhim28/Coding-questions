@@ -1,0 +1,27 @@
+class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        int duration[] = {1, 7, 30};
+        int mem[] = new int[days.length];
+        for(int i = 0; i < costs.length; i++)
+            mem[i] = 0;
+        return findMinCost(0, days, costs, mem, duration);
+    }
+    
+    public int findMinCost(int i, int[] days, int[] costs, int mem[], int duration[]) {
+        if(i >= days.length)
+            return 0;
+        else if(mem[i] != 0)
+            return mem[i];
+        else {
+            int min = Integer.MAX_VALUE;
+            for(int k = 0; k < 3; k++) {
+                int j = i;
+                while(j < days.length && days[i] + duration[k] > days[j])
+                    j++;
+                min = Math.min(min, costs[k] + findMinCost(j, days, costs, mem, duration));
+            }
+            mem[i] = min;
+            return min;
+        }
+    }
+}
