@@ -1,0 +1,19 @@
+class Solution {
+    public boolean stoneGame(int[] piles) {
+        return (findWinner(piles, 0, 0, 0, piles.length-1));
+    }
+    public boolean findWinner(int[] piles, int a_points, int p_points, int i, int j) {
+        if((j-i+1) == 2) {
+            a_points += Math.max(piles[i], piles[j]);
+            p_points += Math.min(piles[i], piles[j]);
+            if(a_points > p_points)
+                return true;
+            else
+                return false;
+        }
+        a_points += Math.max(piles[i], piles[j]);
+        p_points += Math.min(piles[i], piles[j]);
+        i++; j--;
+        return (findWinner(piles, a_points, p_points, i, j));
+    }
+}
