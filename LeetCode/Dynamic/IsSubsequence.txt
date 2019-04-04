@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if(s.length() == 0)
+            return true;
+        if(t.length() == 0)
+            return false;
+        int m = s.length() + 1;
+        int n = t.length() + 1;
+        int dp[][] = new int[m][n];
+        for(int i = 0; i < m; i++)
+            dp[i][0] = 0;
+        for(int j = 0; j < m; j++)
+            dp[0][j] = 0;
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(s.charAt(i-1) == t.charAt(j-1))
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                else 
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+        if(dp[m-1][n-1] == s.length())
+            return true;
+        else
+            return false;
+    }
+}
