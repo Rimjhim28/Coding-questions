@@ -1,0 +1,28 @@
+class Solution {
+    public int integerBreak(int n) {
+        if(n == 0)
+            return 0;
+        else if(n == 1 || n== 2 || n == 3)
+            return (n-1);
+        else {
+            int mem[] = new int[n+1];
+            for(int i = 0; i <= n; i++)
+                mem[i] = 0;
+            return findMaxProduct(n, mem);
+        }
+        
+    }
+    public int findMaxProduct(int n, int mem[]) {
+        if(n == 1 || n == 2 || n == 3)
+            return n;
+        if(mem[n] != 0)
+            return mem[n];
+        else {
+            int ans = Integer.MIN_VALUE;
+            for(int i = 1; i < n; i++)
+                ans = Math.max(ans, findMaxProduct(i, mem) * findMaxProduct(n-i, mem));
+            mem[n] = ans;
+            return mem[n];
+        }
+    }
+}
