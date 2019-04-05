@@ -1,0 +1,27 @@
+class Solution {
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        int mem[][] = new int[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j <n ; j++) {
+                mem[i][j] = -1;
+            }
+        }
+        return findPalinLen(s, 0, n-1, mem);
+    }
+    
+    public int findPalinLen(String str, int s, int e, int mem[][]) {
+        if(s > e) return 0;
+        if (s == e) {
+            mem[s][e] = 1;
+            return mem[s][e];
+        }
+        if(mem[s][e] == -1) {
+            if(str.charAt(s) == str.charAt(e))
+                mem[s][e] = 2 + findPalinLen(str, s+1, e-1, mem);
+            else
+                mem[s][e] = Math.max(findPalinLen(str, s+1, e, mem), findPalinLen(str, s, e-1, mem));
+        }
+        return mem[s][e];
+    }
+}
