@@ -1,0 +1,19 @@
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        int count[] = new int[10001];
+        for(int x: nums) count[x]++;
+        int using= 0, avoid = 0, prev = -1;
+        for(int k = 0; k <= 10000; k++) {
+            int m = Math.max(avoid, using);
+            if(k-1 != prev) {
+                avoid = m;
+                using = m + k * count[k];
+            } else {
+                using = avoid + count[k] * k;
+                avoid = m;
+            }
+            prev = k;
+        }
+        return Math.max(avoid, using);
+    }
+}
