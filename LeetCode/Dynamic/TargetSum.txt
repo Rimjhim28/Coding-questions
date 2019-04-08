@@ -1,0 +1,24 @@
+class Solution {
+    public int findTargetSumWays(int[] nums, int S) {
+        int mem[][] = new int[nums.length][2002];
+        for(int i = 0; i < nums.length; i++) {
+            for(int j = 0; j < 2002; j++)
+                mem[i][j] = -1;
+        }
+        return findSum(nums, S, 0, mem, 0);
+    }
+    
+    public int findSum(int[] nums, int S, int i, int mem[][], int sum) {
+        if(i == nums.length) {
+            if(sum == S)
+                return 1;
+            else
+                return 0;
+        } else {
+            if(mem[i][sum+1000] != -1)
+                return mem[i][sum+1000];
+            mem[i][sum+1000] = findSum(nums, S, i+1, mem, sum +nums[i]) + findSum(nums, S, i+1, mem, sum-nums[i]);
+            return mem[i][sum+1000];
+        }
+    }
+}
