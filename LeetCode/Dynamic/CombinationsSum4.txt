@@ -1,0 +1,21 @@
+class Solution {
+    int mem[];
+    public int combinationSum4(int[] nums, int target) {
+        mem = new int[target+1];
+        Arrays.fill(mem, -1);
+        return findCombinations(nums, target);
+    }
+    public int findCombinations(int nums[], int target) {
+        if(target < 0) return 0;
+        if(target == 0) return 1;
+        if(mem[target] != -1)
+            return mem[target];
+        else{
+            int sum = 0;
+            for(int k = 0; k < nums.length; k++)
+                sum+=findCombinations(nums, target-nums[k]);
+            mem[target] = sum;
+            return mem[target];
+        }
+    }
+}
