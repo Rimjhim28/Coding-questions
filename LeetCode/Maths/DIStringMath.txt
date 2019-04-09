@@ -1,0 +1,20 @@
+class Solution {
+    public int[] diStringMatch(String S) {
+        int[] ans = new int[S.length()+1];
+        int i = 0, d = S.length(),  k = 0;
+        while( k <= S.length()) {
+            if(k == S.length()){
+                ans[k] = i;
+                break;
+            } else if(S.charAt(k) == 'I') {
+                ans[k] = i;
+                ++i;
+            } else {
+                ans[k] = d;
+                --d;
+            }
+            ++k;
+        }
+        return ans;
+    }
+}
