@@ -1,0 +1,33 @@
+class Solution {
+    public int projectionArea(int[][] grid) {
+        int sum = 0, m = grid.length, n = grid[0].length, i, j;
+        
+        //top view
+        for(i = 0; i < m; i++)
+            for(j = 0; j < n; j++)
+                if(grid[i][j] != 0)
+                    sum+=1;
+        
+        //side view (largest element of each row)
+        for(i = 0; i < m; i++) {
+            int max = Integer.MIN_VALUE;
+            for(j = 0; j < n; j++) {
+                if(grid[i][j] > max)
+                    max = grid[i][j];
+            }
+            sum+=max;
+        }
+        
+        //front view (largest element of each column)
+        for(j = 0; j < n; j++) {
+            int max = Integer.MIN_VALUE;
+            for(i = 0; i < m; i++) {
+                if(grid[i][j] > max)
+                    max = grid[i][j];
+            }
+            sum+=max;
+        }
+        
+        return sum;
+    }
+}
