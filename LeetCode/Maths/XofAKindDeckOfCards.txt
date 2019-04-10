@@ -1,0 +1,28 @@
+class Solution {
+    public boolean hasGroupsSizeX(int[] deck) {
+        List<Integer> freq = new ArrayList<>();
+        int c = 0;
+        if(deck.length == 1) return false;
+        int count[] = new int[10001];
+        for(int a: deck)
+            count[a]++;
+        for(int a: count){
+            if(a > 0)
+                freq.add(a);
+        }
+ outer: for(int X = 2; X <= deck.length; X++) {
+            c = 0;
+            for(int i = 0; i < freq.size(); i++) {
+                if(freq.get(i)%X == 0){
+                    c+=1;
+                }
+                if(freq.get(i)%X != 0){
+                    continue outer;
+                }
+                if(c == freq.size())
+                    return true;  
+            }
+        }
+        return false;
+    }
+}
