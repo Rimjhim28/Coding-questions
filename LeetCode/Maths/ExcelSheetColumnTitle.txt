@@ -1,0 +1,14 @@
+class Solution {
+    public String convertToTitle(int n) {
+        String ans = "";
+        int rem;
+        while(n > 0){
+            n--;
+            rem = n % 26;
+            rem+=65;
+            ans = (char) rem + ans;
+            n = n / 26;
+        }
+        return ans;
+    }
+}
