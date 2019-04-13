@@ -1,0 +1,33 @@
+class Solution {
+    public String originalDigits(String s) {
+        String ans = "";
+        int[] count = new int[10];
+        Arrays.fill(count, 0);
+        for(int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(ch == 'z') count[0]++;
+            if(ch == 'w') count[2]++;
+            if(ch == 'x') count[6]++;
+            if(ch == 's') count[7]++;
+            if(ch == 'g') count[8]++;
+            if(ch == 'h') count[3]++;
+            if(ch == 'u') count[4]++;
+            if(ch == 'f') count[5]++;
+            if(ch == 'i') count[9]++;
+            if(ch == 'o') count[1]++;
+        }
+        count[7] -= count[6];
+        count[5] -= count[4];
+        count[3] -= count[8];
+        count[9] = count[9] - count[8] - count[5] - count[6];
+        count[1] = count[1] - count[0] - count[2] - count[4];
+        
+        for(int i = 0; i <= 9; i++){
+            int c = count[i];
+            for(int j = 0; j < c; j++)
+                ans+=i;
+        }
+        
+        return ans;
+    }
+}
