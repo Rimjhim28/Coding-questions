@@ -1,0 +1,20 @@
+class Solution {
+    public int countNumbersWithUniqueDigits(int n) {
+        if(n == 0) return 1;
+        if(n==1) return 10;
+        if( n == 2) return 91;
+        int res = 91;   
+        for(int i = 3; i <= n; i++) {
+            int ans = 9;
+            int base = 9;
+            int count = i - 1;
+            while( base >= 0 && count > 0){
+                ans = ans * base;
+                base--;
+                count--;
+            }
+            res+=ans;
+        }
+        return res;
+    }
+}
