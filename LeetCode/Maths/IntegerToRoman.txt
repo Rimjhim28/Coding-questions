@@ -1,0 +1,75 @@
+class Solution {
+    int n;
+    public String intToRoman(int num) {
+        n = num;
+        int values[] = {1, 5, 10, 50, 100, 500, 1000};
+        char symbol[] = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+        String ans = "";
+        while(n > 0){
+            int i =0;
+            while(i<7 && n >= values[i]){ 
+                i++;
+            }
+            ans += findValue(i-1);
+        }
+        return ans;
+    }
+    
+    public String findValue(int i) {
+        switch(i) {
+            case 0:
+                if(n == 4){
+                    n-=4;
+                    return "IV";
+                } else {
+                    n-=1;
+                    return "I";
+                }
+            case 1:
+                if(n == 9){
+                    n-=9;
+                    return "IX";
+                } else {
+                    n-=5;
+                    return "V";
+                }
+            case 2:
+                if(n >= 40){
+                    n-=40;
+                    return "XL";
+                } else {
+                    n-=10;
+                    return "X";
+                }
+            case 3:
+                if(n >= 90){
+                    n-=90;
+                    return "XC";
+                } else {
+                    n-=50;
+                    return "L";
+                }
+            case 4:
+                if(n >= 400){
+                    n-=400;
+                    return "CD";
+                } else {
+                    n-=100;
+                    return "C";
+                }
+            case 5:
+                if(n >= 900){
+                    n-=900;
+                    return "CM";
+                } else {
+                    n-=500;
+                    return "D";
+                }
+            case 6:
+                n-=1000;
+                return "M";
+            default:
+                return "";
+        }
+    }   
+}
