@@ -1,0 +1,12 @@
+class Solution {
+    public List<Boolean> prefixesDivBy5(int[] A) {
+        long x = 0, rem;
+        List<Boolean> ans = new ArrayList<>();
+        for(int i = 0; i < A.length; i++){
+            x = (2*x + A[i])%5;
+            rem = x%5;
+            ans.add(rem==0);
+        }
+        return ans;
+    }
+}
