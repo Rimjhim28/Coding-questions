@@ -1,0 +1,18 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> ans = new ArrayList<>();
+        ans.add(1);
+        if(rowIndex == 0) return ans;
+        int rem, sum;
+        for(int i = 1; i <= rowIndex; i++) {
+            rem = 1;
+            for(int j = 1; j < i; j++) {
+                sum = ans.get(j) + rem;
+                rem = ans.get(j);
+                ans.set(j, sum);
+            }
+            ans.add(1);
+        }
+        return ans;
+    }
+}
