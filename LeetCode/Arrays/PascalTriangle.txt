@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if(numRows == 0)
+            return ans;
+        for(int i = 0; i < numRows; i++) {
+            List<Integer> temp = new ArrayList<>();
+            List<Integer> prev = null;
+            temp.add(1);
+            if(i!=0){
+                prev = ans.get(i-1);
+            }
+            for(int j = 1; j < i; j++)
+                temp.add(prev.get(j)+prev.get(j-1));                          
+            if(i!=0)
+            temp.add(1);
+            ans.add(temp);
+        }
+        return ans;
+    }
+}
