@@ -1,0 +1,26 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int z = 0, nz = 0, i = 0, n = nums.length;
+        while(z < n && nz < n){
+            while(z < n && nums[z] != val)
+                z++; 
+            nz = z + 1;
+            while(nz < n && nums[nz] == val)
+                nz++;
+            if(nz < n && z < n){
+                int temp = nums[nz];
+                nums[nz] = nums[z];
+                nums[z] = temp;
+                z+=1;
+            }
+        }
+        int l = 0;
+        for(int a: nums){
+            if(a != val)
+                ++l;
+        }
+        return l;
+        }
+    }
+
+
