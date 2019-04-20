@@ -1,0 +1,15 @@
+class Solution {
+    public int dominantIndex(int[] nums) {
+        int max = Integer.MIN_VALUE, max_ind = -1, n = nums.length, sum_l = 0, sum_r = 0;
+        for(int i = 0; i < n; i++)
+            if(nums[i] > max){
+                max = nums[i];
+                max_ind = i;
+            }
+        for(int i = 0; i < n; i++){
+            if(max_ind != i && nums[max_ind] < 2 * nums[i])
+                return -1;
+        }
+        return max_ind;
+    }
+}
