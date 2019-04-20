@@ -1,0 +1,18 @@
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        int count[] = new int[nums.length];
+        Arrays.fill(count, 1);
+        int max = 1, n = nums.length;
+        for(int i = 1; i < n; i++) {
+            if(nums[i-1] < nums[i]){
+                if(count[i-1]+1 > count[i]){
+                    count[i] = count[i-1] + 1;
+                    max = Math.max(max, count[i]);
+                }
+            }            
+        }
+        return max;
+    }
+}
