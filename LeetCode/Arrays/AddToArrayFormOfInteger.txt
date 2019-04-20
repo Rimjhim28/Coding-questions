@@ -1,0 +1,18 @@
+class Solution {
+    public List<Integer> addToArrayForm(int[] A, int K) {
+        List<Integer> ans = new ArrayList<>();
+        int i = A.length - 1, c = 0, sum;
+        while( i >= 0 || c > 0 || K > 0){
+            sum = 0;
+            if(i>=0)
+                sum+=A[i];
+            sum+=K%10+c;
+            ans.add(sum%10);
+            c=sum/10;
+            K/=10;
+            i--;
+        }
+        Collections.reverse(ans);
+        return ans;
+    }
+}
