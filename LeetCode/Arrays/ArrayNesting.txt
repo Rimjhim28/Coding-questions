@@ -1,0 +1,18 @@
+public class Solution {
+    public int arrayNesting(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != -1) {
+                int k = nums[i], count = 0;
+                while (nums[k] != -1) {
+                    int temp = k;
+                    k = nums[k];
+                    count++;
+                    nums[temp] = -1;
+                }
+                res = Math.max(res, count);
+            }
+        }
+        return res;
+    }
+}
