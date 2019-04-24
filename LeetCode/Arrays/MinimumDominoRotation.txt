@@ -1,0 +1,22 @@
+class Solution {
+    public int minDominoRotations(int[] A, int[] B) {
+        int a = 0, b = 0, ans = Integer.MAX_VALUE;
+ outer: for(int i = 1; i <= 6; i++) {
+            a = 0;
+            b = 0;
+            for(int j = 0; j < A.length; j++) {
+                if(A[j] != i && B[j] != i)
+                    continue outer;
+                else if (A[j] == i && B[j] == i)
+                    continue;
+                else if(A[j] == i)
+                    ++a;
+                else
+                    ++b;
+            }
+            ans = Math.min(ans, Math.min(a, b)); 
+        }
+        if(ans == Integer.MAX_VALUE) ans = -1;
+        return ans;
+    }
+}
