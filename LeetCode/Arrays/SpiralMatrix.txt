@@ -1,0 +1,21 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int i = 1, x = 0, y = n-1, a, b, c, d;
+        int ans[][] = new int[n][n];
+        while( x <= y) {
+            a = x; b = x; c = y; d = y;
+            while(a < y) 
+                ans[x][a++] = i++;            
+            while(b < y)
+                ans[b++][y] = i++;       
+            while(c > x)
+                ans[y][c--] = i++; 
+            while(d > x)
+                ans[d--][x] = i++;
+           ++x; --y; 
+        }
+        if(n%2 != 0)
+            ans[n/2][n/2] = n*n;
+        return ans;
+    }
+}
