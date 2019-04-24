@@ -1,0 +1,18 @@
+class Solution {
+    public void rotate(int[][] matrix) {
+        int n = matrix.length, i, x, y, a, b, c, d;
+        x = 0; y = n-1;
+        while(x < y) {
+            a = x; b = x; c = y; d = y;
+            while(a < y) {
+                int temp = matrix[x][a];
+                matrix[x][a] = matrix[d][x];
+                matrix[d][x] = matrix[y][c];
+                matrix[y][c] = matrix[b][y];
+                matrix[b][y] = temp;
+                ++a; ++b; --c; --d;
+            }
+            ++x; --y;
+        }       
+    }
+}
