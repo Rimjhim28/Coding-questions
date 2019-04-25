@@ -1,0 +1,19 @@
+class Solution {
+    public int triangleNumber(int[] nums) {
+        int i, j, k, c = 0, n = nums.length, s;
+        Arrays.sort(nums);
+        for(i = 0; i < n; i++) {
+            for(j = i+1; j < n; j++) {
+                if(nums[i] != 0 && nums[j]!=0) {
+                    s = nums[i] + nums[j];
+                    k = j+1;
+                    while(k < n && nums[k] != 0 && nums[k] < s) {
+                        ++c;
+                        ++k;
+                    }
+                }   
+            }
+        }
+        return c;
+    }
+}
