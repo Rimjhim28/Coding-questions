@@ -1,0 +1,29 @@
+class MyCalendarTwo {
+
+    List<int[]> events, doubles;
+    
+    public MyCalendarTwo() {
+        events = new ArrayList();
+        doubles = new ArrayList();
+    }
+    
+    public boolean book(int start, int end) {
+        for(int[] ev: doubles) {
+            if(ev[0] < end && start < ev[1])
+                return false;
+        }
+        for(int[] ev: events) {
+            if(ev[0] < end && start < ev[1]) {
+                doubles.add(new int[]{Math.max(ev[0],start), Math.min(ev[1],end)});
+            }
+        }
+        events.add(new int[]{start, end});
+        return true;
+    }
+}
+
+/**
+ * Your MyCalendarTwo object will be instantiated and called as such:
+ * MyCalendarTwo obj = new MyCalendarTwo();
+ * boolean param_1 = obj.book(start,end);
+ */
