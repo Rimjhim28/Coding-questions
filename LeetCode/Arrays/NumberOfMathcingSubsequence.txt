@@ -1,0 +1,22 @@
+class Solution {
+    public int numMatchingSubseq(String S, String[] words) {
+        int c = 0; 
+        for(int i = 0; i < words.length; i++)
+            if(isSubsequence(S, words[i]))
+                c+=1;
+        return c;
+    }
+    
+    public boolean isSubsequence(String s, String t) {
+        int m = s.length(), n = t.length();
+        int j = 0;
+        for(int i = 0; i < m && j < n; i++) {
+            if(s.charAt(i) == t.charAt(j))
+                j++;
+        }
+        if(j == t.length())
+            return true;
+        else
+            return false;
+    }
+}
