@@ -1,0 +1,15 @@
+class Solution {
+    public boolean isValid(String S) {
+        Stack<Character> st = new Stack();
+        for(char ch: S.toCharArray()) {
+            if(ch != 'c')
+                st.push(ch);
+            else {
+                if(st.empty() || st.size() == 1 || st.peek() == 'a') return false;
+                st.pop();
+                st.pop();
+            }
+        }
+        return st.empty();
+    }
+}
