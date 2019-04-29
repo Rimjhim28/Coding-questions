@@ -1,0 +1,35 @@
+class Solution {
+    public String decodeString(String s) {
+        Stack<Character> st = new Stack();
+        String ans = "";
+        for(char ch: s.toCharArray()) {
+            if(ch == ']') {
+                String str = "", num = "";
+                while(!st.empty() && st.peek() !='[') {
+                    str = st.peek() + str;
+                    st.pop();
+                }
+                System.out.println(str);
+                st.pop();
+                while(!st.empty() && (st.peek()-'0' >= 0 && st.peek() -'0' <= 9)) {
+                    num = st.peek() + num;
+                    st.pop();
+                }
+                int n = 0;
+                if(num != "")
+                n = Integer.parseInt(num);
+                String m = "";
+                for(int i = 1; i <= n; i++)
+                    m+=str;
+                for(char c: m.toCharArray())
+                    st.push(c);       
+            } else
+                st.push(ch);
+        }
+        while(!st.empty()) {
+            ans = st.peek() + ans;
+            st.pop();
+        }
+        return ans;
+    }
+}
