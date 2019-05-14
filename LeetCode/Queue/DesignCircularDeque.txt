@@ -1,0 +1,109 @@
+class MyCircularDeque {
+
+    int f, r, k, a[];
+    /** Initialize your data structure here. Set the size of the deque to be k. */
+    public MyCircularDeque(int k) {
+        this.k = k;
+        f = 0;
+        r = -1;
+        a = new int[k]; 
+    }
+    
+    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+    public boolean insertFront(int value) {
+        if(!isFull()) {
+            if(isEmpty()){
+                r = 0;
+                a[0] = value;
+            } else {
+                f = (f-1+k)%k;
+                a[f] = value;
+            }
+            return true;
+        } else
+            return false;
+    }
+    
+    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+    public boolean insertLast(int value) {
+        if(!isFull()) {
+            r = (r+1)%k;
+            a[r] = value;
+            return true;
+        } else
+            return false;
+    }
+    
+    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+    public boolean deleteFront() {
+        if(!isEmpty()) {
+            if(f == r) {
+                f = 0;
+                r = -1;
+            } else {
+                f = (f+1)%k;
+            }
+            return true;
+        } else
+            return false;
+    }
+    
+    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+    public boolean deleteLast() {
+        if(!isEmpty()) {
+            if(f == r) {
+                f = 0;
+                r = -1;
+            } else {
+                r = (r-1+k)%k;
+            }
+            return true;
+        } else
+            return false;
+    }
+    
+    /** Get the front item from the deque. */
+    public int getFront() {
+        if(!isEmpty())
+            return a[f];
+        else
+            return -1;
+    }
+    
+    /** Get the last item from the deque. */
+    public int getRear() {
+        if(!isEmpty())
+            return a[r];
+        else
+            return -1;
+    }
+    
+    /** Checks whether the circular deque is empty or not. */
+    public boolean isEmpty() {
+        if(f == 0 && r == -1)
+            return true;
+        else
+            return false;
+    }
+    
+    /** Checks whether the circular deque is full or not. */
+    public boolean isFull() {
+        if((f == 0 && r == k-1) || (!isEmpty() && (f-r) == 1))
+            return true;
+        else
+            return false;
+    }
+}
+
+/**
+ * Your MyCircularDeque object will be instantiated and called as such:
+ * MyCircularDeque obj = new MyCircularDeque(k);
+ * boolean param_1 = obj.insertFront(value);
+ * boolean param_2 = obj.insertLast(value);
+ * boolean param_3 = obj.deleteFront();
+ * boolean param_4 = obj.deleteLast();
+ * int param_5 = obj.getFront();
+ * int param_6 = obj.getRear();
+ * boolean param_7 = obj.isEmpty();
+ * boolean param_8 = obj.isFull();
+ */
