@@ -1,0 +1,76 @@
+class MyCircularQueue {
+
+    int k, f = 0, r = -1, a[];
+    /** Initialize your data structure here. Set the size of the queue to be k. */
+    public MyCircularQueue(int k) {
+        this.k = k;
+        a = new int[k];
+    }
+    
+    /** Insert an element into the circular queue. Return true if the operation is successful. */
+    public boolean enQueue(int value) {
+        if(!isFull()) {
+            r = (r+1)%k;
+            a[r] = value;
+            return true;
+        } else
+            return false;
+    }
+    
+    /** Delete an element from the circular queue. Return true if the operation is successful. */
+    public boolean deQueue() {
+        if(!isEmpty()) {
+            if(f == r) {
+                f = 0;
+                r = -1;
+            }
+            else
+                f = (f+1)%k;
+            return true;
+        }
+        return false;
+    }
+    
+    /** Get the front item from the queue. */
+    public int Front() {
+        if(!isEmpty())
+            return a[f];
+        else
+            return -1;
+    }
+    
+    /** Get the last item from the queue. */
+    public int Rear() {
+        if(!isEmpty())
+            return a[r];
+        else
+            return -1;
+    }
+    
+    /** Checks whether the circular queue is empty or not. */
+    public boolean isEmpty() {
+        if(f == 0 && r == -1)
+            return true;
+        else
+            return false;
+    }
+    
+    /** Checks whether the circular queue is full or not. */
+    public boolean isFull() {
+        if((f == 0 && r == k-1) || (!isEmpty() && (f-r) == 1))
+            return true;
+        else
+            return false;
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * boolean param_1 = obj.enQueue(value);
+ * boolean param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * boolean param_5 = obj.isEmpty();
+ * boolean param_6 = obj.isFull();
+ */
