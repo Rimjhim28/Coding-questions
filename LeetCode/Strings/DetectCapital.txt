@@ -1,0 +1,22 @@
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        if(word.length() == 0 || word.length() == 1)
+            return true;
+        boolean oU = Character.isUpperCase(word.charAt(0));
+        boolean tU = Character.isUpperCase(word.charAt(1));
+            if(oU == true && tU == true) {
+                for(int i = 2; i < word.length(); i++) {
+                    if(Character.isLowerCase(word.charAt(i)))
+                        return false;
+                }
+                return true;
+            } else if ((oU == true && tU == false) || (oU == false && tU == false)) {
+                for(int i = 2; i < word.length(); i++) {
+                    if(Character.isUpperCase(word.charAt(i)))
+                        return false;
+                }
+                return true;
+            } else
+                return false;
+    }
+}
