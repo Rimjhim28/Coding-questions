@@ -1,0 +1,17 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int ranCount[] = new int[26];
+        int magCount[] = new int[26];
+        Arrays.fill(ranCount, 0);
+        Arrays.fill(magCount, 0);
+        for(char ch: ransomNote.toCharArray())
+            ranCount[ch-'a']+=1;
+        for(char ch: magazine.toCharArray())
+            magCount[ch-'a']+=1;
+        for(int i = 0; i < 26; i++) {
+            if(magCount[i] < ranCount[i])
+                return false;
+        }
+        return true;
+    }
+}
