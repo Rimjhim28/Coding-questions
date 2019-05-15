@@ -1,0 +1,22 @@
+class Solution {
+    public boolean checkRecord(String s) {
+        boolean ca = false, cl = true;
+        int c = 0;
+        for(char ch: s.toCharArray()) {
+            if(ch == 'A')
+                c+=1;
+        }
+        if(c > 1)
+            ca = false;
+        else
+            ca = true;
+        for(int i = 2; i < s.length(); i++) {
+            if(s.charAt(i) == s.charAt(i-1) && s.charAt(i-1) == s.charAt(i-2) && s.charAt(i) == 'L')
+                cl = false;
+        }
+        if(cl == false || ca == false)
+            return false;
+        else
+            return true;
+    }
+}
