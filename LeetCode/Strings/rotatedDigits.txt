@@ -1,0 +1,22 @@
+class Solution {
+    public int rotatedDigits(int N) {
+        int count = 0;
+        for(int i = 1; i <= N; i++)
+            if(isValid(i))
+                count+=1;
+        return count;
+    }
+    
+    public boolean isValid(int N) {
+        boolean valid = false;
+        while(N > 0) {
+            int r = N%10;
+            if(r == 3 || r == 4 || r == 7)
+                return false;
+            else if(r == 2 || r == 5 || r == 6 || r == 9)
+                valid = true;
+            N = N / 10;
+        }
+        return valid;
+    }
+}
