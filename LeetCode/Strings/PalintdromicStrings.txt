@@ -1,0 +1,26 @@
+class Solution {
+    public int countSubstrings(String s) {
+        int n = s.length(), count = 0;
+        boolean palin[][] = new boolean[n][n];
+        for(int i = 0; i < n; i++)
+            palin[i][i] = true;
+        for(int i = 0; i < n-1; i++){
+            if(s.charAt(i) == s.charAt(i+1))
+            palin[i][i+1] = true;
+        }
+        for(int gap = 2; gap < n; gap++) {
+            for(int i = 0; i < n-gap; i++) {
+                int j = i+gap;
+                if(s.charAt(i) == s.charAt(j) && palin[i+1][j-1] == true)
+                    palin[i][j] = true;
+            }
+        }
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(palin[i][j] == true)
+                    count+=1;
+            }
+        }
+        return count;
+    }
+}
