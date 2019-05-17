@@ -1,0 +1,29 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length(), i, j, start = 0, end = 0;
+        if(n == 0) return s;
+        boolean palin[][] = new boolean[n][n];
+        for(i = 0; i < n; i++)
+            palin[i][i] = true;
+        for(i = 0; i < n-1; i++) {
+            if(s.charAt(i) == s.charAt(i+1)) {
+                palin[i][i+1] = true;
+                start = i;
+                end = i+1;
+            }
+        }
+        for(int gap =2; gap < n; gap++) {
+            for(i = 0; i < n-gap; i++) {
+                j = i + gap;
+                if(s.charAt(i) == s.charAt(j) && palin[i+1][j-1] == true) {
+                    palin[i][j] = true;
+                    if((end - start) < (j - i)) {
+                        start = i;
+                        end = j;
+                    }
+                }
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+}
