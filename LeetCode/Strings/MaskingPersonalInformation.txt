@@ -1,0 +1,27 @@
+class Solution {
+    public String maskPII(String S) {
+        if(S.contains("@")) {
+            String name = S.substring(0, S.indexOf('@'));
+            String rest = S.substring(S.indexOf('@')+1);
+            name = name.toLowerCase();
+            rest = rest.toLowerCase();
+            String ans = name.charAt(0) + "*****" + name.charAt(name.length()-1) + "@" + rest;
+            return ans;
+        } else {
+            String nums = "", ans;
+            for(char ch: S.toCharArray()) {
+                if(Character.isDigit(ch))
+                    nums = nums + ch;
+            }
+            int ex = nums.length() - 10;
+            ans = "***-***-" + nums.substring(nums.length()-4);
+            if(ex > 0) {
+                ans = "-" + ans;
+                for(int i = 1; i <= ex; i++)
+                    ans = "*" + ans;
+                ans = "+" + ans;
+            }
+            return ans;
+        }
+    }
+}
