@@ -1,0 +1,28 @@
+class Solution {
+    public List<String> wordSubsets(String[] A, String[] B) {
+        int cnt[] = new int[26];
+        int acnt[] = new int[26];
+        int bcnt[] = new int[26];
+        List<String> ans = new ArrayList();
+        int i = 0;
+            for(String str: B){
+                Arrays.fill(bcnt, 0);
+                for(char ch: str.toCharArray())
+                    bcnt[ch-'a']++;
+                for(int j = 0; j < 26; j++)
+                    cnt[j] = Math.max(cnt[j], bcnt[j]);
+            }
+        for(String str: A) {
+            Arrays.fill(acnt, 0);
+            for(char ch: str.toCharArray())
+                acnt[ch-'a']++;
+            for(i = 0; i < 26; i++) {
+                if(cnt[i] > acnt[i])
+                    break;
+            }
+            if(i == 26)
+                ans.add(str);
+        }
+        return ans;
+    }
+}
