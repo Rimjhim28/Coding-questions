@@ -1,0 +1,23 @@
+class Solution {
+    public int nextGreaterElement(int n) {
+        String nstr = ""+n;
+        int i, j;
+        char ch[] = nstr.toCharArray();
+        for(i = nstr.length()-1; i > 0; i--) {
+            if(ch[i] > ch[i-1])
+                break;
+        }
+        if(i == 0) return -1;
+        int min = i, k = ch[i-1];
+        for(j = i+1; j < ch.length; j++) {
+            if(ch[j] > k && ch[j] < ch[min])
+                min = j;
+        }
+        char temp = ch[min];
+        ch[min] = ch[i-1];
+        ch[i-1] = temp;
+        Arrays.sort(ch, i, j);
+        long ans = Long.parseLong(String.valueOf(ch));
+        return ans > Integer.MAX_VALUE? -1: (int)ans;
+    }
+}
