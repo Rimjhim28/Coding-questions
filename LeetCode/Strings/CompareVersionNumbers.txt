@@ -1,0 +1,30 @@
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        version1 = version1 + '.';
+        version2 = version2 + '.';
+        int l1 = version1.length();
+        int l2 = version2.length();
+        int s1 = 0, e1 = version1.indexOf('.'), s2 = 0, e2 = version2.indexOf('.'), a, b;
+        while(s1 < l1 || s2 < l2) {            
+            if(s1 >= l1)
+                a = 0;
+            else 
+                a = Integer.parseInt(version1.substring(s1, e1));
+            if(s2 >= l2)
+                b = 0;
+            else
+                b = Integer.parseInt(version2.substring(s2, e2));
+            if(a > b) return 1;
+            if(a < b) return -1;
+            if(e1 != -1 && e1 < l1) {
+                s1 = e1 + 1;
+                e1 = version1.indexOf('.', s1);
+            }
+            if(e2 != -1 && e2 < l2) {
+                s2 = e2 + 1;
+                e2 = version2.indexOf('.', s2);
+            }
+        }
+        return 0;
+    }
+}
