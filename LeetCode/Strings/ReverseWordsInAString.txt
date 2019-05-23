@@ -1,0 +1,17 @@
+class Solution {
+    public String reverseWords(String s) {
+        int start = 0, end;
+        String ans = "";
+        s = s.trim();
+        s = s + " ";
+        int l = s.length();
+        while(start < l) {
+            end = s.indexOf(' ', start);
+            while(end+1 < l && s.charAt(end+1) == ' ')
+                end+=1;            
+            ans = s.substring(start, end).trim() +" " + ans;
+            start = end + 1;
+        }
+        return ans.trim();
+    }
+}
