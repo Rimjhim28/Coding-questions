@@ -1,0 +1,29 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val,List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+class Solution {
+    List<Integer> ans;
+    public List<Integer> postorder(Node root) {
+        ans = new ArrayList<Integer>();
+        postTraverse(root);
+        return ans;
+    }
+    public void postTraverse(Node node) {
+        if(node != null) {
+            for(Node child: node.children)
+                postTraverse(child);
+            ans.add(node.val);
+        }
+    }
+}
