@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int minDiffInBST(TreeNode root) {
+        List<Integer> elements = new ArrayList<>();
+        traverse(root, elements);
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i < elements.size()-1; i++) {
+            if(min > (elements.get(i+1) - elements.get(i)))
+                min = elements.get(i+1) - elements.get(i);
+        }
+        return min;
+    }
+    
+    public void traverse(TreeNode node, List<Integer> elements) {
+        if(node != null) {
+            traverse(node.left, elements);
+            elements.add(node.val);
+            traverse(node.right, elements);
+        }
+    }
+}
