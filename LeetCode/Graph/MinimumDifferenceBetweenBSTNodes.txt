@@ -8,22 +8,15 @@
  * }
  */
 class Solution {
+    TreeNode pre = null;
+    int min = Integer.MAX_VALUE;
     public int minDiffInBST(TreeNode root) {
-        List<Integer> elements = new ArrayList<>();
-        traverse(root, elements);
-        int min = Integer.MAX_VALUE;
-        for(int i = 0; i < elements.size()-1; i++) {
-            if(min > (elements.get(i+1) - elements.get(i)))
-                min = elements.get(i+1) - elements.get(i);
-        }
+        if(root.left != null) minDiffInBST(root.left);
+        if(pre != null)
+            if(root.val-pre.val < min)
+                min = root.val-pre.val;
+        pre = root;
+        if(root.right != null) minDiffInBST(root.right);
         return min;
-    }
-    
-    public void traverse(TreeNode node, List<Integer> elements) {
-        if(node != null) {
-            traverse(node.left, elements);
-            elements.add(node.val);
-            traverse(node.right, elements);
-        }
     }
 }
