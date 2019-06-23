@@ -1,0 +1,24 @@
+class Solution {
+    public String reorganizeString(String S) {
+        int i, N = S.length();
+        int f[] = new int[26];
+        for(char ch: S.toCharArray())
+            f[ch-'a']+=100;
+        for(i = 0; i < 26; i++)
+            f[i]+=i;
+        Arrays.sort(f);
+        int t = 1;
+        char[] ans = new char[N];
+        for(int code: f) {
+            int ct = code/100;
+            if(ct > (N+1)/2) return "";
+            char ch = (char)('a'+code%100);
+            while(ct-- > 0) {
+                ans[t] = ch;
+                t+=2;
+                if(t >= N) t = 0;
+            }
+        }
+        return String.valueOf(ans);
+    }
+}
