@@ -9,11 +9,11 @@ public class Solution {
          Comparator<String> comp = new Comparator<String>(){
 		    @Override
 		    public int compare(String str1, String str2){
-		        String s1 = str1 + str2;
-			String s2 = str2 + str1;
-			return s2.compareTo(s1); // reverse order here, so we can do append() later
+                String s1 = str1 + str2;
+                String s2 = str2 + str1;
+                return s2.compareTo(s1); 
 		    }
-	        };
+         };
 		
 		Arrays.sort(s_num, comp);
         if(s_num[0].charAt(0) == '0')
