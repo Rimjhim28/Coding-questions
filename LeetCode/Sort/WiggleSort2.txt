@@ -1,0 +1,74 @@
+class Solution {
+    
+    int k;
+    int nums[];    
+    public void wiggleSort(int[] nums) {
+        this.nums = nums;
+        int n = nums.length;
+        if(n == 0 || n == 1) return;
+        int m = (n+1)/2, i;
+        int median = getMedian(m);        
+        int left = 0,  right = n - 1; i = 0;
+        while (i <= right) {
+            if (nums[newIndex(i,n)] > median) {
+                swap(newIndex(left++,n), newIndex(i++,n));
+            }
+            else if (nums[newIndex(i,n)] < median) {
+                swap(newIndex(right--,n), newIndex(i,n));
+            }
+            else {
+                i++;
+            }       
+        }        
+    }
+    
+    private int newIndex(int index, int n) {
+        return (1 + 2*index) % (n | 1);
+    }
+    
+    void swap(int i, int j) {
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+    
+   public int getMedian(int k) {
+        this.k = k;
+        sort(0, nums.length-1);
+        return nums[k-1];
+    }
+    
+    public void sort(int l, int h) {
+        if(l < h) {
+            int p = randomPartition(l, h);       
+            if(k-1 < p) sort(l, p-1);
+            if(k-1 > p) sort(p+1, h);
+        }
+    }
+    
+    public int randomPartition(int l, int h) {
+        int r = h-l+1;
+        int i = (int)(Math.random()*r)+l;
+        int t = nums[i];
+        nums[i] = nums[l];
+        nums[l] = t;
+        return partition(l, h);
+    }
+    
+    public int partition(int l, int h) {
+        int i = l-1;
+        int p = nums[h];
+        for(int j = l; j < h; j++) {
+            if(nums[j] >= p) {
+                i = i + 1;
+                int t = nums[i];
+                nums[i] = nums[j];
+                nums[j] = t;
+            }
+        }
+        int t = nums[i+1];
+        nums[i+1] = nums[h];
+        nums[h] = t;
+        return i+1;
+    }
+}
