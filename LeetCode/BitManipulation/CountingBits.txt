@@ -1,0 +1,18 @@
+class Solution {
+    public int[] countBits(int num) {
+        int d = 1;
+        int ans[]= new int[num+1];
+        if(num >= 0) ans[0] = 0;
+        if(num >= 1) ans[1] = 1;
+        if(num == 0 || num == 1) return ans;
+        for(int i = 2; i <=num; i++) {
+            if((i & (i-1)) == 0){
+                d*=2;
+                ans[i] = 1;
+            }
+            else 
+                ans[i] = ans[i-d]+1;
+        }
+        return ans;
+    }
+}
