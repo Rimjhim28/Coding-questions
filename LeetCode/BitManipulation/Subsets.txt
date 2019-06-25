@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        int n = nums.length;
+        int x = (int)Math.pow(2, n);
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int i = 0; i < x; i++) {
+            List<Integer> l = new ArrayList<>();
+            int mask = 1, ind = 0, t = i;
+            while(t > 0) {
+                if((t & mask) == 1)
+                    l.add(nums[ind]);
+                t>>=1;
+                ind+=1;
+            }
+            ans.add(l);
+        }
+        return ans;
+    }
+}
