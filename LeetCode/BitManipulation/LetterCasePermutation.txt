@@ -1,0 +1,23 @@
+class Solution {
+    List<String> res;
+    public List<String> letterCasePermutation(String S) {
+        res = new ArrayList<String>();
+        formPerm(S.toCharArray(), 0);
+        return res;
+    }
+    public void formPerm(char[] chs, int pos) {
+        if(pos == chs.length) {
+            res.add(new String(chs));
+            return;
+        }
+        if(chs[pos] >='0' && chs[pos] <= '9') {
+            formPerm(chs, pos+1);
+            return;
+        }
+        chs[pos] = Character.toLowerCase(chs[pos]);
+        formPerm(chs, pos+1);
+        
+        chs[pos] = Character.toUpperCase(chs[pos]);
+        formPerm(chs, pos+1);        
+    }
+}
