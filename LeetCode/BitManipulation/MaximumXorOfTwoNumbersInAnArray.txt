@@ -1,0 +1,12 @@
+class Solution {
+    public int findMaximumXOR(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        if(nums.length == 0 || nums.length == 1) return 0;
+        for(int i = 0; i < nums.length; i++) {
+            for(int j = i+1; j < nums.length; j++) {
+                max = Math.max(max, nums[i]^nums[j]);
+            }
+        }
+        return max;
+    }
+}
