@@ -1,0 +1,16 @@
+class Solution {
+    public int totalHammingDistance(int[] nums) {
+        int ans = 0, zero, one;
+        for(int i = 0; i < 32; i++) {
+            zero = 0; 
+            one  = 0;
+            for(int j = 0; j < nums.length; j++) {
+                int c = nums[j] & (1<<i);
+                if(c == 0) zero++;
+                else one++;
+            }
+            ans += one*zero;
+        }
+        return ans;
+    }
+}
