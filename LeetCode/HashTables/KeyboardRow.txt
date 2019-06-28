@@ -1,0 +1,10 @@
+class Solution {
+    public String[] findWords(String[] words) {
+        List<String> ans = new ArrayList<>();
+        for(String word: words) {
+            if(word.toLowerCase().matches("[qwertyuiop]*|[asdfghjkl]*|[zxcvbnm]*"))
+                ans.add(word);
+        }
+        return ans.toArray(new String[ans.size()]);
+    }
+}
