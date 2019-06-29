@@ -1,0 +1,19 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        recurse(ans, "", 0, 0, n);
+        return ans;
+    }
+    
+    public void recurse(List<String> ans, String str, int open, int close, int max) {
+        if(str.length() == 2*max) {
+            ans.add(str);
+            return;
+        } else {
+            if(open < max)
+                recurse(ans, str + '(', open+1, close, max);
+            if(close < open)
+                recurse(ans, str + ')', open, close+1, max);
+        }
+    }
+}
