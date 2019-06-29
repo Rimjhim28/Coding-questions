@@ -1,0 +1,24 @@
+class Solution {
+    List<String> res;
+    public List<String> letterCasePermutation(String S) {
+        res = new ArrayList<String>();
+        char[] ch = S.toCharArray();
+        findPerm(ch, 0);
+        return res;
+    }
+    
+    public void findPerm(char[] ch, int i) {
+        if(i == ch.length) {
+            res.add(new String(ch));
+            return;
+        }
+        if(ch[i] >= '0' && ch[i] <= '9')
+            findPerm(ch, i+1);
+        else {
+            ch[i] = Character.toLowerCase(ch[i]);
+            findPerm(ch, i+1);
+            ch[i] = Character.toUpperCase(ch[i]);
+            findPerm(ch, i+1);
+        }
+    }
+}
