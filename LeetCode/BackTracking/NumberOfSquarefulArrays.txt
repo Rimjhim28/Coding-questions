@@ -1,0 +1,33 @@
+class Solution {
+    int count;
+    public int numSquarefulPerms(int[] A) {
+        Arrays.sort(A);
+        boolean visited[] = new boolean[A.length];
+        recurse(new ArrayList<Integer>(), visited, A, -1);
+        return count;
+    }
+    
+    public void recurse(List<Integer> temp, boolean[] visited, int A[], int num) {
+        if(temp.size() == A.length) {
+            count++;
+            return;
+        }
+        for(int i = 0; i < A.length; i++) {
+            if(visited[i] || (i > 0 && A[i] == A[i-1] && !visited[i-1])) continue;
+            if(num != -1) {
+                if(isSquare(A[i], num) == false)
+                    continue;
+            }
+            temp.add(A[i]);
+            visited[i] = true;
+            recurse(temp, visited, A, A[i]);
+            temp.remove(temp.size()-1);
+            visited[i] = false;
+        }
+    }
+    
+    public boolean isSquare(int a, int b) {
+        double root = Math.sqrt(a+b);
+        return (root - Math.floor(root)) == 0;
+    }
+}
