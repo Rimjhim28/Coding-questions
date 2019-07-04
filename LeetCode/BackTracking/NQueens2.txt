@@ -1,0 +1,44 @@
+class Solution {
+    int n, c;
+    List<List<String>> res;
+    public int totalNQueens(int n) {
+        this.n = n;
+        res = new ArrayList<>();
+        char temp[][] = new char[n][n];
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                temp[i][j] = '.';
+        recurseQueens(temp, 0);
+        return c;
+    }
+    
+    public boolean recurseQueens(char[][] temp, int col) {
+        if(col == n) {
+            ++c;
+            return true;
+        }
+        boolean res = false;
+        for(int i = 0; i < n; i++) {
+            if(isSafe(temp, i, col)) {
+                temp[i][col] = 'Q';
+                res = recurseQueens(temp, col+1) || res;
+                temp[i][col] = '.';
+            }
+        }
+        return res;
+    }
+    
+    public boolean isSafe(char[][] temp, int row, int col) {
+        int i, j;
+        for(i = 0; i < n; i++)
+            if(temp[row][i] == 'Q')
+                return false;
+        for(i = row, j = col; i >= 0 && j >= 0; i--, j--)
+            if(temp[i][j] == 'Q')
+                return false;
+        for(i = row, j = col; j >= 0 && i < n; i++, j--)
+            if(temp[i][j] == 'Q')
+                return false;
+        return true;
+    }
+}
