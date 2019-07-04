@@ -1,0 +1,46 @@
+class Solution {
+    int grid[][];
+    int ei, ej, res, m, n;
+    public int uniquePathsIII(int[][] grid) {
+        this.grid = grid;
+        this.m = grid.length;
+        this.n = grid[0].length;
+        int si = 0, sj = 0, c = 0;
+        boolean visited[][] = new boolean[m][n];
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(grid[i][j] == 1) {
+                    si = i; 
+                    sj = j;
+                }
+                if(grid[i][j] == 2) {
+                    this.ei = i;
+                    this.ej = j;
+                }
+                if(grid[i][j] == 0)
+                    c+=1;
+                if(grid[i][j] == -1)
+                    visited[i][j] = true;
+            }
+        }
+        recurse(visited, si, sj, c+1);
+        return res;
+    }
+    
+    public void recurse(boolean visited[][], int i, int j, int c) {
+        if(c == 0 && i == ei && j == ej) {
+            res+=1;
+        } else {
+            visited[i][j] = true;
+            if(i > 0 && !visited[i-1][j])
+                recurse(visited, i-1, j, c-1);
+            if(i < m-1 && !visited[i+1][j])
+                recurse(visited, i+1, j, c-1);
+            if(j > 0 && !visited[i][j-1])
+                recurse(visited, i, j-1, c-1);
+            if(j < n-1 && !visited[i][j+1])
+                recurse(visited, i, j+1, c-1);
+            visited[i][j] = false;
+        }
+    }    
+}
