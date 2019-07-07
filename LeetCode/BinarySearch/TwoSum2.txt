@@ -1,0 +1,28 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int res[] = new int[2];
+        for(int i = 0; i < numbers.length; i++) {
+            int a = search(numbers, target-numbers[i], i+1);
+            if(a != -1) {
+                res[0] = i+1;
+                res[1] = a+1;
+                return res;
+            }
+        }
+        return res;
+    }
+    public int search(int[] numbers, int x, int l) {
+        int h = numbers.length-1;
+        int m;
+        while(l <= h) {
+            m = (l+h)/2;
+            if(numbers[m] == x)
+                return m;
+            else if(numbers[m] > x)
+                h = m-1;
+            else
+                l = m+1;
+        }
+        return -1;
+    } 
+}
