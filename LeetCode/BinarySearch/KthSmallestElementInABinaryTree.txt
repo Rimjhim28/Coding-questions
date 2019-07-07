@@ -1,0 +1,23 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        LinkedList<TreeNode> st = new LinkedList<>();
+        while(true) {
+            while(root != null) {
+                st.add(root);
+                root = root.left;
+            }
+            root = st.removeLast();
+            if(--k == 0) return root.val;
+            root = root.right;
+        }
+    }
+}
