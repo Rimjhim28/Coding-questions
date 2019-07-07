@@ -1,0 +1,21 @@
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+        int l = 0, h = letters.length-1;
+        if(target >= letters[h]) return letters[0];
+        if(target < letters[l]) return letters[l];
+        int mid = (l+h)/2;
+        while(l <= h) {
+            mid = (l+h)/2;                
+            if(letters[mid] <= target) {
+                while(letters[mid] == letters[mid+1]) ++mid;
+                if(letters[mid+1] > target)
+                return letters[mid+1];
+            }
+            if(letters[mid] < target)
+                l = mid+1;
+            else
+                h = mid-1;
+        }
+        return letters[mid];
+    }
+}
