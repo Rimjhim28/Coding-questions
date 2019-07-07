@@ -1,0 +1,24 @@
+class Solution {
+    public int shipWithinDays(int[] weights, int D) {
+        int l = 0, h = 0, res;
+        for(int w: weights) {
+            l = Math.max(w, l);
+            h += w;
+        }
+        while(l < h) {
+            int mid = (l+h)/2;
+            int c = 1, s = 0;
+            for(int w: weights) {
+                if(s + w > mid) {
+                    c+=1;
+                    s = 0;
+                }
+                s += w;
+            }
+            if(c > D) l = mid + 1;
+            else h = mid;
+        }
+        return l;
+    }
+}
+
