@@ -1,0 +1,13 @@
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> s1 = new HashSet<Integer>();
+        HashSet<Integer> s2 = new HashSet<Integer>();
+        for(Integer a: nums1) s1.add(a);
+        for(Integer a: nums2) s2.add(a);
+        s1.retainAll(s2);
+        int[] res = new int[s1.size()];
+        int idx = 0;
+        for(int x: s1) res[idx++] = x;
+        return res;
+    }
+}
