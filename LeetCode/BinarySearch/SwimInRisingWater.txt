@@ -1,0 +1,24 @@
+class Solution {
+    public int swimInWater(int[][] grid) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> grid[a[0]][a[1]] - grid[b[0]][b[1]]);
+        pq.add(new int[]{0, 0});
+        int res = 0, n = grid.length;
+        int dir[][] = {{0 ,1}, {0, -1},{1, 0}, {-1, 0}};
+        boolean visited[][] = new boolean[n][n];
+        while(!pq.isEmpty()) {
+            int top[] = pq.poll();
+            res = Math.max(res, grid[top[0]][top[1]]);
+            if(top[0] == n-1 && top[1] == n-1)
+                return res;
+            for(int d[]: dir) {
+                int r = top[0] + d[0];
+                int c = top[1] + d[1];
+                if(!(r < 0|| r > n - 1 || c < 0 || c > n - 1)  && !visited[r][c]) {
+                    visited[top[0]][top[1]] = true;
+                    pq.add(new int[]{r, c});
+                }
+            }
+        }
+        return -1;
+    }
+}
