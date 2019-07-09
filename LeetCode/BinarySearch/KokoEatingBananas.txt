@@ -1,0 +1,21 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int H) {
+        int l = 1, h = 0;
+        for(int a: piles)
+            h = Math.max(h, a);
+        while(l < h) {
+            int mid = (l+h)/2;
+            if(canEat(piles, H, mid))
+                h = mid;
+            else
+                l = mid+1;
+        }
+        return l;
+    }
+    public boolean canEat(int[] piles, int H, int s) {
+        int t = 0;
+        for(int p: piles)
+            t += (p-1)/s+1;
+        return t<=H; 
+    }
+}
