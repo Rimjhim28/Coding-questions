@@ -1,0 +1,31 @@
+class Solution {
+    
+    public int countInRange(int nums[], int num, int l, int h) {
+        int c = 0;
+        for(int i = l;i <= h; i++) {
+            if(nums[i] == num)
+                c+=1;
+        }
+        return c;
+    }
+    
+    public int majorityElementRec(int nums[], int l, int h) {
+        if(l == h)
+            return nums[l];
+        int mid = (h-l)/2+l;
+        
+        int left = majorityElementRec(nums, l, mid);
+        int right = majorityElementRec(nums, mid+1, h);
+        
+        if(left == right) return left;
+        
+        int leftCount = countInRange(nums, left, l, h);
+        int rightCount = countInRange(nums, right, l, h);
+        
+        return leftCount>rightCount? left: right;
+    }
+    
+    public int majorityElement(int[] nums) {
+        return majorityElementRec(nums, 0, nums.length-1);
+    }
+}
