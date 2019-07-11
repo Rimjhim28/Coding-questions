@@ -1,0 +1,45 @@
+class Solution {
+    int K;
+    int points[][];
+    public int[][] kClosest(int[][] points, int K) {
+        this.points = points;
+        this.K = K;
+        sort(0, points.length-1);
+        return Arrays.copyOfRange(points, 0, K);
+    }
+    
+    public void sort(int l, int h) {
+        if(l < h) {
+            int q = partition(l, h);
+            if(q == K-1)
+                return;
+            if(K-1 < q)
+            sort(l, q-1);
+            if(K-1 > q)
+            sort(q+1, h);
+        }
+    }
+    
+    public int partition(int l, int h) {
+        int x[] = points[h];
+        int i = l-1;
+        for(int j = l; j < h; j++) {
+            if(dist(points[j]) < dist(x)) {
+                i+=1;
+                swap(i, j);
+            }
+        }
+        swap(i+1, h);
+        return (i+1);
+    }
+    
+    public int dist(int[] p) {
+        return p[0]*p[0]+p[1]*p[1];
+    }
+    
+    public void swap(int i, int j) {
+        int t[] = points[i];
+        points[i] = points[j];
+        points[j] = t;
+    }
+}
