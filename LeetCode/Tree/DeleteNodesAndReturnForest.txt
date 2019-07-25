@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    Set<Integer> set;
+    List<TreeNode> res;
+    public List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        set = new HashSet<>();
+        res = new ArrayList<>();
+        for(int i: to_delete)
+            set.add(i);
+        helper(root, true);
+        return res;
+    }
+    public TreeNode helper(TreeNode node, boolean is_root) {
+        if(node == null) return null;
+        boolean deleted = set.contains(node.val);
+        if(is_root && !deleted)
+            res.add(node);
+        node.left = helper(node.left, deleted);
+        node.right = helper(node.right, deleted);
+        return deleted? null: node;
+    }
+}
