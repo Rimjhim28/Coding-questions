@@ -1,0 +1,26 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int diff;
+    public int maxAncestorDiff(TreeNode root) {
+        diff = 0;
+        dfs(root, root.val, root.val);
+        return diff;
+    }
+    public void dfs(TreeNode node, int max, int min) {
+        if(node != null) {
+            max = Math.max(max, node.val);
+            min = Math.min(min, node.val);
+            diff = Math.max(diff, max-min);
+            dfs(node.left, max, min);
+            dfs(node.right, max, min);
+        }
+    }
+}
