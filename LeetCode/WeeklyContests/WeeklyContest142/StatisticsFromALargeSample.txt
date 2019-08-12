@@ -1,0 +1,64 @@
+class Solution {
+    public double[] sampleStats(int[] count) {
+        double res[] = new double[5];
+        
+        //minimum
+        for(int i  = 0; i < 256; i++) {
+            if(count[i] > 0) {
+                res[0] = i;
+                break;
+            }
+        }
+        
+        //maximum
+        for(int i = 255; i >= 0; i--) {
+            if(count[i] > 0) {
+                res[1] = i;
+                break;
+            }
+        }
+        
+        //mean
+        double c = 0, sum = 0;
+        for(int i = 0; i < 256; i++) {
+            c += count[i];
+            sum += (count[i] * i);
+        }
+        res[2] = sum/c;
+        
+        //median
+        double x = 0; int j;
+            if(c % 2 == 0) {
+                double find1 = c/2, find2 = find1 + 1;
+                for(j = 0; j < 256; j++) {
+                    if(find1 - count[j] <= 0) break;
+                    find1 -= count[j];
+                }
+                x += j;
+                for(j = 0; j < 256; j++) {
+                    if(find2 - count[j] <= 0) break;
+                    find2 -= count[j];
+                }
+                x += j;
+                res[3] = x/2;
+            } else {
+                double find = c/2;
+                for(j = 0; j < 256; j++) {
+                    if(find - count[j] <= 0) break;
+                    find-=count[j];
+                }
+                res[3] = j;
+            }
+        
+        //mode
+        double mf = 0, ele = 0;
+        for(int i = 0; i <256; i++) {
+            if(count[i] > mf) {
+                mf = count[i];
+                ele = i;
+            }
+        }
+        res[4] = ele;
+        return res;
+    }
+}
