@@ -1,0 +1,29 @@
+class Solution {
+    public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
+        Map<List<Integer>, Integer> dp = new HashMap();
+        return shopping(price, special, needs, dp);
+    }
+    public int shopping(List<Integer> price, List<List<Integer>> special, List<Integer> needs, Map<List<Integer>, Integer> dp) {
+        if(dp.containsKey(needs))
+            return dp.get(needs);
+        int j = 0, res = exact(price, needs);
+        for(List<Integer> s: special) {
+            List<Integer> clone = new ArrayList<Integer>(needs);
+            for(j = 0; j < needs.size(); j++) {
+                int diff = needs.get(j) - s.get(j);
+                if(diff < 0) break;
+                clone.set(j, diff);
+            }
+            if(j == needs.size())
+                res = Math.min(res, s.get(j) + shopping(price, special, clone, dp));
+        }
+        dp.put(needs, res);
+        return res;
+    }
+    public int exact(List<Integer> price, List<Integer> needs) {
+        int sum = 0;
+        for(int i = 0; i < price.size(); i++)
+            sum+=price.get(i)*needs.get(i);
+        return sum;
+    }
+}
