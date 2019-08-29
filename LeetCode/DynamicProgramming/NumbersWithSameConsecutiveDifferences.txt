@@ -1,0 +1,27 @@
+class Solution {
+    public int[] numsSameConsecDiff(int N, int K) {
+        Set<Integer> ans = new HashSet<>();
+        int start = 1;
+        if(N == 1) start = 0;
+        for(int i = start; i < 10; i++)
+            compute(i, N-1, ans, K);
+        int l = ans.size();
+        int res[] = new int[ans.size()];
+        int i = 0;
+        for(int x: ans)
+            res[i++] = x;
+        return res;
+    }
+    
+    public void compute(int num, int N, Set<Integer> ans, int K) {
+        if(N == 0)
+            ans.add(num);
+        else {
+            int n = num%10;
+            if(n+K < 10)
+                compute(num*10+(n+K), N-1, ans, K);
+            if(n-K >= 0)
+                compute(num*10+(n-K), N-1, ans, K);
+        }
+    }
+}
