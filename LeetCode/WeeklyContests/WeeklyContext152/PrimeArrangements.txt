@@ -1,0 +1,29 @@
+import java.math.BigInteger;
+class Solution {
+    int mod = 1000000007;
+    public int numPrimeArrangements(int n) {
+        int x = 0;
+        boolean prime[] = new boolean[n+1];
+        Arrays.fill(prime, true);
+        prime[1] = false;
+        for(int i = 2; i <= n; i++) {
+            if(prime[i] == true) {
+                for(int j = i*i; j <= n; j+=i) {
+                    prime[j] = false;
+                }
+            }
+        }
+        for(int i = 1; i <= n; i++) {
+            if(prime[i] == true) x++;
+        }
+        BigInteger m = fact(x);
+        BigInteger y = fact(n-x);
+        return m.multiply(y).mod(BigInteger.valueOf(mod)).intValue();
+    }
+    public BigInteger fact(int n) {
+        BigInteger f = BigInteger.ONE;
+        for(int i = 2; i <= n; i++)
+            f = f.multiply(BigInteger.valueOf(i));
+        return f.mod(BigInteger.valueOf(mod));
+    }
+}
