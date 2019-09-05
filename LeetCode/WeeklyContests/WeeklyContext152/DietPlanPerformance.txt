@@ -1,0 +1,14 @@
+class Solution {
+    public int dietPlanPerformance(int[] calories, int k, int lower, int upper) {
+        int res = 0, x;
+        for(int i = 1; i < calories.length; i++)
+            calories[i] += calories[i-1];
+        for(int i = k-1; i < calories.length; i++) {
+            x = calories[i] - ((i-k) >= 0? calories[i-k]: 0);
+            System.out.println(x);
+            if(x < lower) res-=1;
+            if(x > upper) res+=1;
+        }
+        return res;
+    }
+}
