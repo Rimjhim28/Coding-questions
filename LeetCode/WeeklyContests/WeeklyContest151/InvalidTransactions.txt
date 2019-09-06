@@ -1,0 +1,38 @@
+class Info {
+    String name, city;
+    int time, amt;
+    Info(String name, int time, int amt, String city) {
+        this.name = name;
+        this.time = time;
+        this.amt = amt;
+        this.city = city;
+    }
+}
+
+class Solution {
+    public List<String> invalidTransactions(String[] transactions) {
+        HashSet<String> res = new HashSet<>();
+        List<Info> infos = new ArrayList<>();
+        int n = transactions.length;
+        for(String transaction: transactions) {
+            String s[] =  transaction.split(",");
+            int t = Integer.parseInt(s[1]);
+            int a = Integer.parseInt(s[2]);
+            infos.add(new Info(s[0], t, a, s[3]));
+        }
+        for(int i = 0; i < n; i++) {
+            Info inf = infos.get(i);
+            if(inf.amt > 1000) {
+                res.add(transactions[i]);
+                continue;
+            }
+            for(int j = 0; j < n; j++) {
+                if(i == j) continue;
+                Info tmp = infos.get(j);
+                if(inf.name.equals(tmp.name) && !inf.city.equals(tmp.city) && Math.abs(inf.time-tmp.time) <= 60)
+                    res.add(transactions[i]);
+            }
+        }
+        return new ArrayList<String>(res);
+    }
+}
