@@ -1,0 +1,33 @@
+class Solution {
+    public int[] numSmallerByFrequency(String[] queries, String[] words) {
+        int c_queries[] = new int[queries.length];
+        int c_words[] = new int[words.length];
+        countChars(queries, c_queries);
+        countChars(words, c_words);
+        int res[] = new int[queries.length];
+        for(int i = 0; i < queries.length; i++) {
+            int c = 0; 
+            for(int j = 0; j < words.length; j++) {
+                if(c_queries[i] < c_words[j])
+                    c++;
+            }
+            res[i] = c;
+        }
+        return res;
+    }
+    public void countChars(String strs[], int count[]) {
+        for(int i = 0; i < strs.length; i++) {
+            String str = strs[i];
+            int c = 1; char ch = str.charAt(0);
+            for(int j = 1; j < str.length(); j++) {
+                if(str.charAt(j) == ch)
+                    c++;
+                else if(str.charAt(j) < ch) {
+                    c = 1;
+                    ch = str.charAt(j);
+                }
+            }
+            count[i] = c;
+        }
+    }
+}
