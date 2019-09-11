@@ -1,0 +1,14 @@
+class Solution {
+    public int dayOfYear(String date) {
+        int d, m, y, res = 0;
+        String s[] = date.split("-");
+        y = Integer.parseInt(s[0]);
+        m = Integer.parseInt(s[1]);
+        d = Integer.parseInt(s[2]);
+        int days[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if(y%4 == 0 && y%100 != 0) days[2] = 29;
+        for(int i = 1; i < m; i++) res+=days[i];
+        res+=d;
+        return res;
+    }
+}
