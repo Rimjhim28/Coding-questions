@@ -1,0 +1,39 @@
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    int time;
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i < n; i++)
+            adj.add(new ArrayList<>());
+        boolean visited[] = new boolean[n];
+        int parent[] = new int[n];
+        int disc[] = new int[n];
+        int low[] = new int[n];
+        time = 0;
+        for(int i = 0; i < connections.size();i++) {
+            List<Integer> par = connections.get(i);
+            int u = par.get(0);
+            int v = par.get(1);
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        findBridge(0, visited, disc, low, parent, adj);
+        return res;
+    }
+    
+    void findBridge(int u, boolean visited[], int disc[], int low[], int parent[], List<List<Integer>> adj) {
+        visited[u] = true;
+        disc[u] = low[u] = ++time;
+        for(int v: adj.get(u)) {
+            if(!visited[v]) {
+                parent[v] = u;
+                findBridge(v, visited, disc, low, parent, adj);
+                low[u] = Math.min(low[u], low[v]);
+                if(low[v] > disc[u]) {
+                    res.add(new ArrayList<>(Arrays.asList(u, v)));
+                } 
+            }else if (v != parent[u]) 
+                low[u]  = Math.min(low[u], disc[v]); 
+        }
+    } 
+}
