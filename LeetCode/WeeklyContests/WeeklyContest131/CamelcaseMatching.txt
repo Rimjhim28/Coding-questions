@@ -1,0 +1,21 @@
+class Solution {
+    public List<Boolean> camelMatch(String[] queries, String pattern) {
+        List<Boolean> res = new ArrayList<>();
+        for(String query: queries)
+            res.add(check(query.toCharArray(), pattern.toCharArray()));
+        return res;
+    }
+    public boolean check(char[] query, char[] pattern) {
+        int i = 0, j = 0;
+        for(j = 0; j < query.length; j++) {
+            if(i < pattern.length && query[j] == pattern[i])
+                ++i;
+            else if(query[j] >= 'A' && query[j] <= 'Z')
+                return false;
+        }
+        if(i == pattern.length)
+            return true;
+        else
+            return false;
+    }
+}
