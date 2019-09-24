@@ -1,0 +1,48 @@
+class Solution {
+    List<String[]> strs;
+    List<String> res;
+    public String[] expand(String S) {
+        strs = new ArrayList<>();
+        res = new ArrayList<>();
+        preprocess(S);
+        backtrack("", 0);
+        Collections.sort(res);
+        return res.toArray(new String[res.size()]);
+    }
+    
+    public void backtrack(String s, int level) {
+        if(level == strs.size())
+            res.add(s);
+        else {
+            for(String str: strs.get(level))
+                backtrack(s+str, level+1);
+        }
+    }
+    
+    public void preprocess(String S) {
+        String str = "";
+        char ch;
+        for(int i = 0; i < S.length(); i++) {
+            ch = S.charAt(i);
+            if(ch == '{') {
+                i++;
+                while(i < S.length() && S.charAt(i) != '}'){
+                    str+=S.charAt(i);
+                    i+=1;
+                }
+                String s[] = str.split(",");
+                strs.add(str.split(","));
+                str = "";
+            } else if(Character.isLetter(ch)) {
+                while(i < S.length() && S.charAt(i) != '{'){
+                    str+=S.charAt(i);
+                    i++;
+                }
+                String s[] = str.split(",");
+                strs.add(str.split(","));
+                str = "";
+                i = i - 1;
+            }
+        }
+    }
+}
