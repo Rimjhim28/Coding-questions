@@ -1,0 +1,47 @@
+class Log {
+    String message;
+    int timestamp;
+    Log(int timestamp, String message) {
+        this.timestamp = timestamp;
+        this.message = message;
+    }
+}
+
+class Logger {
+    
+    /**Declaring the data structure here*/
+    Queue<Log> recentLogs;
+    HashSet<String> messages;
+
+    /** Initialize your data structure here. */
+    public Logger() {
+        recentLogs = new LinkedList<>();
+        messages = new HashSet<>();
+    }
+    
+    /** Returns true if the message should be printed in the given timestamp, otherwise returns false.
+        If this method returns false, the message will not be printed.
+        The timestamp is in seconds granularity. */
+    public boolean shouldPrintMessage(int timestamp, String message) {
+        while(recentLogs.size() > 0) {
+            Log l = recentLogs.peek();
+            if(timestamp - l.timestamp >= 10) {
+                recentLogs.poll();
+                messages.remove(l.message);
+            } else
+                break;
+        }
+        boolean res = !messages.contains(message);
+        if(res) {
+            recentLogs.add(new Log(timestamp, message));
+            messages.add(message);
+        }
+        return res;
+    }
+}
+
+/**
+ * Your Logger object will be instantiated and called as such:
+ * Logger obj = new Logger();
+ * boolean param_1 = obj.shouldPrintMessage(timestamp,message);
+ */
