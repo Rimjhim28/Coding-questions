@@ -1,0 +1,14 @@
+public class Solution {
+    public String licenseKeyFormatting(String S, int K) {
+        S = S.replace("-","");
+        S = S.toUpperCase();
+        
+        StringBuilder sb = new StringBuilder(S);
+        int len = sb.toString().length();
+        
+        for(int i=K; i < len; i=i+K) {
+                sb.insert(len-i,'-');
+            }
+        return sb.toString();   
+    }
+}
