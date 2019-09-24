@@ -1,0 +1,31 @@
+class Solution {
+    public int[] assignBikes(int[][] workers, int[][] bikes) {
+        int w = workers.length;
+        int b = bikes.length;
+        List<List<int[]>> dist = new ArrayList<>();
+        int bks[] = new int[2001];
+        Arrays.fill(bks, -1);
+        for(int i = 0; i < 2001; i++)
+            dist.add(new ArrayList<int[]>());
+        int res[] = new int[w];
+        Arrays.fill(res, -1);
+        for(int i = 0; i < w; i++) {
+            for(int j = 0; j < b; j++) {
+                int d = Math.abs(workers[i][0] - bikes[j][0]) 
+                    + Math.abs(workers[i][1] - bikes[j][1]);
+                dist.get(d).add(new int[]{i, j});
+            }
+        }
+        for(int i = 1; i <=2000; i++) {
+            if(dist.get(i) != null) {
+                for(int pair[]: dist.get(i)) {
+                    if(res[pair[0]] == -1 && bks[pair[1]] == -1) {
+                        res[pair[0]] = pair[1];
+                        bks[pair[1]] = 0;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}
