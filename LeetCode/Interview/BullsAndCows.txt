@@ -1,0 +1,24 @@
+class Solution {
+    public String getHint(String secret, String guess) {
+        int freq[] = new int[10];
+        int n = guess.length();
+        int b = 0, c = 0;
+        for(char ch: secret.toCharArray())
+            freq[ch-'0']++;
+        for(int i = 0; i < n; i++) {
+            if(guess.charAt(i) == secret.charAt(i)) {
+                b++;
+                freq[guess.charAt(i)-'0']--;
+            }
+        }
+        for(int i = 0; i < n; i++) {
+            if(guess.charAt(i) != secret.charAt(i)) {
+                if(freq[guess.charAt(i) - '0'] > 0) {
+                    c++;
+                    freq[guess.charAt(i)-'0']--;
+                }
+            }
+        }
+        return (b+"A"+c+"B");
+    }
+}
