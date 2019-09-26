@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    List<Integer> res;
+    public boolean isValidBST(TreeNode root) {
+        res = new ArrayList<Integer>();
+        traverse(root);
+        for(int i = 0; i < res.size()-1; i++)
+            if(res.get(i) >= res.get(i+1))
+                return false;
+        return true;
+    }
+    
+    public void traverse(TreeNode root) {
+        if(root != null) {
+            traverse(root.left);
+            res.add(root.val);
+            traverse(root.right);
+        }
+    }
+}
