@@ -1,0 +1,31 @@
+class Solution {
+    public boolean areSentencesSimilarTwo(String[] words1, String[] words2, List<List<String>> pairs) {
+        if(words1.length != words2.length)
+            return false;
+        Set<String> seen = new HashSet();
+        HashMap<String, List<String>> adj = new HashMap(); 
+        for(List<String> pair: pairs) {
+            adj.computeIfAbsent(pair.get(0), z-> new ArrayList()).add(pair.get(1));
+            adj.computeIfAbsent(pair.get(1), z-> new ArrayList()).add(pair.get(0));
+        }
+        for(int i = 0; i < words1.length; i++) {
+            seen = new HashSet();
+            seen.add(words1[i]);
+            dfs(words1[i],words2[i], adj, seen);
+            if(!seen.contains(words2[i]))
+                return false;
+        }
+        return true;
+    }
+    public void dfs(String u, String key, HashMap<String,List<String>> adj, Set<String> seen) {
+        if(u.equals(key)) return;
+        if(adj.get(u) != null){
+            for(String v: adj.get(u)) {
+                if(!seen.contains(v)) {
+                    seen.add(v);
+                    dfs(v, key, adj, seen);
+                }
+            }
+        }
+    }
+}
