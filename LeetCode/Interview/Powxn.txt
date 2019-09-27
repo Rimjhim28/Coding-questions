@@ -1,0 +1,19 @@
+class Solution {
+    public double myPow(double x, int y) {
+        double res = 1;
+        int sign = 1;
+        if(y < 0) {
+            y = -y;
+            sign = -1;
+        }
+        while(y > 0) {
+            if(y%2 != 0) 
+                res = res * x;
+            y = y / 2;
+            x = x * x;
+        }
+        if(sign == -1)
+            res = 1/res;
+        return res;
+    }
+}
