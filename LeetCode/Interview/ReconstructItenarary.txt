@@ -1,0 +1,21 @@
+class Solution {
+    
+    Map<String, PriorityQueue<String>> path;
+    List<String> res;
+    
+    public List<String> findItinerary(List<List<String>> tickets) {
+        path = new HashMap<>();
+        res = new ArrayList<>();
+        for(List<String> ticket: tickets) {
+            path.computeIfAbsent(ticket.get(0), z-> new PriorityQueue()).add(ticket.get(1));
+        }
+        traverse("JFK");
+        return res;
+    }
+    
+    void traverse(String src) {
+        while(path.containsKey(src) && !path.get(src).isEmpty())
+            traverse(path.get(src).poll());
+        res.add(0, src);
+    }
+}
