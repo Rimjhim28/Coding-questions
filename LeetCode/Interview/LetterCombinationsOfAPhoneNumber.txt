@@ -1,0 +1,18 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        String chars[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        List<String> res = new ArrayList<String>();
+        if(digits.length() != 0)
+            recurse(digits, 0, "", res, chars);
+        return res;
+    }
+    
+    public void recurse(String digits, int i, String str, List<String> res, String chars[]) {
+        if(i == digits.length())
+            res.add(str);
+        else {
+            for(char ch: chars[digits.charAt(i)-'0'].toCharArray())
+                recurse(digits, i+1, str+ch, res, chars);
+        }
+    }
+}
