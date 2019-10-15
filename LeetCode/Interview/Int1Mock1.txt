@@ -1,0 +1,19 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        if(digits == null || digits.length < 1) return digits; 
+        List<Integer> res = new ArrayList<>();
+        int c = 1, sum = 0;
+        for(int i = digits.length-1; i >= 0; i--) {
+            sum = digits[i] + c;
+            res.add(sum%10);
+            c = sum/10;
+        }
+        if(c > 0)
+            res.add(c);
+        int ans[]= new int[res.size()];
+        for(int i = 0; i < res.size(); i++) {
+            ans[i] = res.get(res.size()-i-1);
+        }
+        return ans;
+    }
+}
