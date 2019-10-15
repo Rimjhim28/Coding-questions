@@ -1,0 +1,53 @@
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Map<String, List<String>> graph = new HashMap<>();
+        wordList.add(0, beginWord);
+        
+        for(int i = 0; i < wordList.size(); i++) {
+            for(int j = i+1; j < wordList.size(); j++) {
+                if(isValidRel(wordList.get(i), wordList.get(j))) {
+                    graph.computeIfAbsent(wordList.get(i), z -> new ArrayList<>()).add(wordList.get(j));
+                    graph.computeIfAbsent(wordList.get(j), z -> new ArrayList<>()).add(wordList.get(i));
+                }
+            }
+        }  
+        return traverse(beginWord, endWord, graph);
+    }
+    
+    public int traverse(String startWord, String endWord, Map<String, List<String>> graph) {
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        queue.add(startWord);
+        visited.add(startWord);
+        int c = 0;
+        while(!queue.isEmpty()) {
+            Queue<String> q1 = new LinkedList<>();
+            c += 1;
+            while(!queue.isEmpty()) {
+                String u = queue.poll();
+                for(String v: graph.get(u)) {
+                  if(v.equals(endWord)) return c+1;  
+                    if(!visited.contains(v)) {
+                        q1.add(v);
+                        visited.add(v);
+                    }
+                }
+            }
+            queue = q1;
+        }
+        return 0;
+    }
+    
+    public boolean isValidRel(String s, String t) {
+        boolean miss = false;
+        for(int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) != t.charAt(i)) {
+                if(miss)
+                    return false;
+                else
+                    miss = true;
+            }
+        }
+        return true;
+    }
+}
