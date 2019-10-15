@@ -1,0 +1,90 @@
+class NumArray {
+    
+    int bit[], nums[];
+    int n;
+
+    public NumArray(int[] nums) {
+        if(nums.length > 0) {
+            this.n = nums.length;
+            this.nums = nums;
+            this.bit = new int[n+1];
+            for(int i = 0; i < n; i++)
+                updateTree(i, nums[i]);
+        }
+    }
+    
+    public void update(int i, int val) {
+        int diff = val - nums[i];
+        nums[i] = val;
+        updateTree(i, diff);
+    }
+    
+    public void updateTree(int index, int val) {
+        index+=1;
+        while(index <= n) {
+            bit[index]+=val;
+            index += index & (-index);
+        }
+    }
+    
+    public int sumRange(int i, int j) {
+        if(i == 0)
+            return getSum(j);
+        else
+            return getSum(j) - getSum(i-1);
+    }
+    
+    public int getSum(int index) {
+        int sum = 0;
+        index+=1;
+        while(index > 0) {
+            sum += bit[index];
+            index -= index & (-index);
+        }
+        return sum;
+    }
+
+//-------------
+//Utils for Segment Tree
+
+//     public int construct(int ss, int se, int si) {
+//         if(ss == se) {
+//             st[si] = nums[ss];
+//             return st[si];
+//         }
+//         int mid = getMid(ss, se);
+//         st[si] = construct(ss,mid,2*si+1) + construct(mid+1,se,2*si+2);
+//         return st[si];
+//     }
+    
+//     public int getSum(int qs, int qe, int ss, int se, int si) {
+//         if(qs <= ss && qe >= se)
+//             return st[si];
+//         if(qe < ss || qs > se)
+//             return 0;
+//         int mid = getMid(ss, se);
+//         return getSum(qs, qe, ss, mid, 2*si+1) + getSum(qs, qe, mid+1, se, 2*si+2);
+//     }
+    
+//     public void updateTree(int ss, int se, int si, int diff, int i) {
+//         if(i < ss || i > se)
+//             return;
+//         st[si] = st[si] + diff;
+//         if(ss != se) {
+//             int mid = (ss+se)/2;
+//             updateTree(ss, mid, 2*si+1, diff, i);
+//             updateTree(mid+1, se, 2*si+2, diff, i);
+//         }
+//     }
+    
+//     public int getMid(int s, int e) { 
+//         return s + (e - s) / 2; 
+//     } 
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
