@@ -1,0 +1,20 @@
+class Solution {
+    public boolean confusingNumber(int N) {
+        int d = N, x = 0, y = 0;
+        int rev = 0;
+        while( d > 0) {
+            x = d % 10;
+            if(x == 2 || x == 3 || x == 4 || x == 5 || x == 7)
+                return false;
+            else if(x == 0 || x == 1 || x == 8)
+                y = x;
+            else if(x == 6)
+                y = 9;
+            else if(x == 9)
+                y = 6;
+            rev = rev * 10 + y;
+            d = d / 10;
+        }
+        return rev!=N;
+    }
+}
