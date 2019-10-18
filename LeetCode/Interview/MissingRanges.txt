@@ -1,0 +1,41 @@
+class Solution {
+    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        
+        List<String>res = new ArrayList<>();
+        int s = 0, e= 0;
+        if(nums == null || nums.length == 0) {
+            formRange(lower, upper, res);
+            return res;
+        }
+        
+        if(nums[0] > lower) {
+            s = lower;
+            e = nums[0]-1;
+            formRange(s, e, res);
+        }
+        
+        for(int i = 1; i < nums.length; i++) {
+            if(nums[i-1] == nums[i] || nums[i-1]+1 == nums[i]) continue;
+            s = nums[i-1]+1;
+            e = nums[i]-1;
+            formRange(s, e, res);
+        }
+        
+        if(nums[nums.length-1] < upper) {
+            s = nums[nums.length-1] + 1;
+            e = upper;
+            formRange(s, e, res);
+        }
+        return res;
+        
+    }
+    
+    public void formRange(int s, int e, List<String> res) {
+        if(s <= e) {
+            if(s == e)
+                res.add(""+s);
+            else
+                res.add(s + "->" + e);
+        }
+    }
+}
