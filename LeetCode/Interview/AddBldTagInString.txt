@@ -1,0 +1,29 @@
+class Solution {
+    public String addBoldTag(String s, String[] dict) {
+        
+        StringBuilder res= new StringBuilder();
+        boolean bold[] = new boolean[s.length()];
+        
+        for(String str: dict) {
+            for(int i = 0; i+str.length() <= s.length(); i++) {
+                if(str.equals(s.substring(i, i+str.length())))
+                    markBold(bold, i, i+str.length()-1);
+            }
+        } 
+        for(boolean x: bold)
+            System.out.println(x);
+        for(int i = 0; i < bold.length; i++) {
+            if((bold[i] == true) && (i == 0 || bold[i-1] == false))
+                res.append("<b>");
+            res.append(s.charAt(i));
+            if((bold[i] == true) && (i == s.length()-1 || bold[i+1] == false))  
+                res.append("</b>");
+        }
+        return res.toString();
+    }
+    public void markBold(boolean bold[], int s, int e) {
+        for(int i = s; i <= e; i++) {
+            bold[i] = true;
+        }
+    }
+}
