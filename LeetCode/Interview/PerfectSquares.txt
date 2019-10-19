@@ -1,0 +1,25 @@
+class Solution {
+    public int numSquares(int n) {
+        ArrayList<Integer> sq_nums = new ArrayList<Integer>();
+        for(int i = 1; i*i <= n; i++) 
+            sq_nums.add(i*i);
+        
+        Set<Integer> queue = new HashSet<Integer>();
+        queue.add(n);
+        
+        int level = 0;
+        while(queue.size() > 0) {
+            level += 1;
+            Set<Integer> next = new HashSet<Integer>();
+            for(int remainder: queue) {
+                for(int square: sq_nums) {
+                    if(remainder == square) return level;
+                    else if(remainder < square) break;
+                    else next.add(remainder-square);
+                }
+            }
+            queue = next;
+        }
+        return level;
+    }
+}
