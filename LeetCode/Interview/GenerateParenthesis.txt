@@ -1,0 +1,17 @@
+class Solution {
+    
+    List<String> res = new ArrayList<>();
+    public List<String> generateParenthesis(int n) {
+        backtrack("(", n-1, n);
+        return res;
+    }
+    
+    public void backtrack(String s, int l, int r) {
+        if(l == 0 && r == 0)
+            res.add(s);
+        else {
+            if(l > 0) backtrack(s+"(", l-1, r);
+            if(l < r) backtrack(s+")", l, r-1);
+        }
+    }
+}
