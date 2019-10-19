@@ -1,0 +1,31 @@
+class Solution {
+    public int kEmptySlots(int[] bulbs, int K) {
+        if(bulbs.length == 1) {
+            if(K == 0) return 1;
+            else return -1;
+        }
+        int turn[] = new int[bulbs.length];
+        int start = bulbs[0]-1, end = bulbs[0]-1, diff;
+        turn[bulbs[0]-1] = 1;
+        for(int i = 0; i < bulbs.length; i++) {
+            int x = bulbs[i]-1;
+            turn[x] = 1;
+            if(x < start) {
+                diff = start - x - 1;
+                start = x;
+                if(diff == K) return i+1;
+            } else if (x > end) {
+                diff = x - end - 1;
+                end = x;
+                if(diff == K) return i+1;
+            } else {
+                int l = x-1, r = x+1;
+                while(l >= 0 && turn[l] != 1) l-=1;
+                while(r < bulbs.length && turn[r] != 1) r+=1;
+                if((l >= 0 && turn[l] == 1 && x-l-1 == K) || (r < bulbs.length && turn[r] == 1 && r-x-1 == K))
+                    return i+1;
+            }
+        }
+        return -1;
+    }
+}
