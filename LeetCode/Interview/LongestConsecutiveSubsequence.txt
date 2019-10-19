@@ -1,0 +1,18 @@
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for(int n: nums) {
+            if(!map.containsKey(n)) {
+                int left = map.getOrDefault(n-1, 0);
+                int right = map.getOrDefault(n+1, 0);
+                int sum = left + right + 1;
+                map.put(n, sum);
+                res = Math.max(res, sum);
+                map.put(n-left, sum);
+                map.put(n+right, sum);
+            } else continue;
+        }
+        return res;
+    }
+}
