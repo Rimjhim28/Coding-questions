@@ -1,0 +1,45 @@
+class PhoneDirectory {
+
+    /** Initialize your data structure here
+        @param maxNumbers - The maximum numbers that can be stored in the phone directory. */
+    List<Integer> nums;
+    int has[];
+    public PhoneDirectory(int maxNumbers) {
+        nums = new ArrayList<>();
+        has = new int[maxNumbers];
+        for(int i = 0; i < maxNumbers; i++)
+            nums.add(i);
+        Arrays.fill(has, 1);
+    }
+    
+    /** Provide a number which is not assigned to anyone.
+        @return - Return an available number. Return -1 if none is available. */
+    public int get() {
+        if(nums.size() <= 0) return -1;
+        int x = nums.get(0);
+        has[x] = 0;
+        nums.remove(0);
+        return x;
+    }
+    
+    /** Check if a number is available or not. */
+    public boolean check(int number) {
+        return has[number]==1;
+    }
+    
+    /** Recycle or release a number. */
+    public void release(int number) {
+        if(has[number] == 0) {
+            nums.add(number);
+            has[number] = 1;
+        }
+    }
+}
+
+/**
+ * Your PhoneDirectory object will be instantiated and called as such:
+ * PhoneDirectory obj = new PhoneDirectory(maxNumbers);
+ * int param_1 = obj.get();
+ * boolean param_2 = obj.check(number);
+ * obj.release(number);
+ */
