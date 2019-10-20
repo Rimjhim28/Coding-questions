@@ -1,0 +1,26 @@
+class Solution {
+    public int[] gardenNoAdj(int N, int[][] paths) {
+        if(paths == null || paths.length == 0) {
+            int res[] = new int[N];
+            Arrays.fill(res, 1);
+            return res;
+        }
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        for(int i = 0; i < N; i++)
+            adj.put(i,new ArrayList<>());
+        for(int path[]: paths) {
+            adj.computeIfAbsent(path[0]-1, z ->new ArrayList<>()).add(path[1]-1);
+            adj.computeIfAbsent(path[1]-1, z ->new ArrayList<>()).add(path[0]-1);
+        }
+        int colors[] = new int[N];
+        for(int i = 0; i < N; i++) {
+            int avail[] = new int[5];
+            for(int v: adj.get(i))
+                avail[colors[v]] = 1;
+            for(int c = 4; c > 0; c--)
+                if(avail[c] == 0)
+                    colors[i] = c;
+        }
+        return colors;
+    }
+}
