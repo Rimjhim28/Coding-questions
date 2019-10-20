@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<String>> groupStrings(String[] strings) {
+        HashMap<String, List<String>> map = new HashMap();
+        List<List<String>> res = new ArrayList<>();
+        String key;
+        for(String str: strings) {
+            key = "";
+            if(str.length() == 1) {
+                map.computeIfAbsent("0#", z->new ArrayList<String>()).add(str);
+                continue;
+            }
+            for(int i = 0; i < str.length()-1; i++) {
+                char ch1 = str.charAt(i), ch2 = str.charAt(i+1);
+                int diff = ch1-ch2;
+                if(diff < 0) diff += 26;
+                key += "#"+diff;
+            }
+            map.computeIfAbsent(key,z-> new ArrayList<String>()).add(str);
+        }
+        for(String k: map.keySet()) {
+            res.add(map.get(k));
+        }
+        return res;
+    }
+}
