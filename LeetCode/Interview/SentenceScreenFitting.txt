@@ -1,0 +1,27 @@
+class Solution {
+    public int wordsTyping(String[] sentence, int rows, int cols) {
+        int res= 0, k = 0;
+        for(int i = 0; i < rows; i++) {
+            boolean first = true;
+            int c = cols;
+            int l;
+            while(c > 0) {
+                if(first) {
+                    l = 0; first = false;
+                } else 
+                    l= 1;
+                l += sentence[k].length();
+                if(c -l >= 0) {
+                    c = c - l;
+                    ++k;
+                    if(k == sentence.length) {
+                        k = 0;
+                        res+=1;
+                    }
+                } else
+                    break;
+            }
+        }
+        return res;
+    }
+}
