@@ -1,0 +1,30 @@
+class Solution {
+    Set<String> set = new HashSet<>();
+    int sum = 0;
+    String tiles;
+    int count[] = new int[26];
+    public int numTilePossibilities(String tiles) {
+        this.tiles = tiles;
+        for(char ch: tiles.toCharArray())
+            count[ch-'A']++;
+        for(char ch: tiles.toCharArray())
+            traverse(ch+"");
+        return set.size();
+    }
+    
+    public void traverse(String s) {
+        set.add(s);
+        for(int i = 0; i < tiles.length(); i++) {
+            if(isValid(s, tiles.charAt(i)))
+                traverse(s+tiles.charAt(i));
+        }
+    }
+    
+    public boolean isValid(String str, char ch) {
+        int c[] = new int[26];
+        for(char x: str.toCharArray()) c[x-'A']++;
+        if(c[ch-'A'] >= count[ch-'A']) 
+            return false;
+        return true;
+    }
+}
