@@ -1,0 +1,20 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> res = new LinkedList<>();
+        int end = (int)Math.pow(2, n);
+        for(int i = 0; i < end; i++) {
+            int x = i;
+            List<Integer> l = new LinkedList<>();
+            int c = 0;
+            while(c < nums.length){
+                if((x & 1)==1)
+                    l.add(nums[c]);
+                ++c;
+                x = x >> 1;
+            }
+            res.add(l);
+        }
+        return res;
+    }
+}
