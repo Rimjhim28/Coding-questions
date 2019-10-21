@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isToeplitzMatrix(int[][] matrix) {
+        if(matrix == null | matrix.length == 0) return false;
+        if(matrix.length == 1 || matrix[0].length == 1) return true;
+        int r = matrix.length, c = matrix[0].length;
+        int i, j, m, n;
+        for(j = c-1; j>= 0; j--) {
+            m = 0; n = j;
+            while(m < r-1 && n < c-1) {
+                if(matrix[m][n] != matrix[m+1][n+1])
+                    return false;
+                m+=1; n+=1;
+            }
+        }
+        for(i= 1; i < r; i++) {
+            m = i; n = 0;
+            while(m < r-1 && n < c-1) {
+                if(matrix[m][n] != matrix[m+1][n+1])
+                    return false;
+                m+=1; n+=1;
+            }
+        }
+        return true;
+    }
+}
