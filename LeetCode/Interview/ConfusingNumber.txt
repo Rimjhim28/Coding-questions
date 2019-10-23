@@ -1,0 +1,18 @@
+class Solution {
+    public boolean confusingNumber(int N) {
+        int res = 0, r, N1 = N;
+        while(N1 > 0) {
+            r = N1%10;
+            if(r == 1 || r == 0 || r == 8)
+                res = res * 10 + r;
+            else if(r == 9)
+                res = res * 10 + 6;
+            else if(r == 6)
+                res = res * 10 + 9;
+            else 
+                return false;
+            N1 = N1 / 10;
+        }
+        return res!=N;
+    }
+}
